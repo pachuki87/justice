@@ -1,0 +1,171 @@
+{
+  "timestamp": "2025-12-09T19:47:25.838Z",
+  "suite": {
+    "name": "Rate Limiting Security Tests",
+    "version": "1.0.0"
+  },
+  "config": {
+    "acceleratedMode": true,
+    "timeMultiplier": 0.01,
+    "maxTestDuration": 10000,
+    "scenarios": {
+      "normal": {
+        "requests": 50,
+        "interval": 100
+      },
+      "burst": {
+        "requests": 200,
+        "interval": 10
+      },
+      "sustained": {
+        "requests": 1000,
+        "interval": 50
+      },
+      "authentication": {
+        "requests": 20,
+        "interval": 200
+      },
+      "sensitive": {
+        "requests": 30,
+        "interval": 300
+      }
+    }
+  },
+  "results": [
+    {
+      "name": "Token Bucket Algorithm",
+      "status": "PASS",
+      "duration": 4,
+      "result": {}
+    },
+    {
+      "name": "Rate Limiting by IP",
+      "status": "PASS",
+      "duration": 3,
+      "result": {}
+    },
+    {
+      "name": "Rate Limiting by User",
+      "status": "PASS",
+      "duration": 3,
+      "result": {}
+    },
+    {
+      "name": "Different Endpoint Limits",
+      "status": "PASS",
+      "duration": 1,
+      "result": {}
+    },
+    {
+      "name": "Authentication Rate Limiting",
+      "status": "PASS",
+      "duration": 0,
+      "result": {}
+    },
+    {
+      "name": "Sensitive Operations Protection",
+      "status": "PASS",
+      "duration": 0,
+      "result": {}
+    },
+    {
+      "name": "Global Rate Limiting",
+      "status": "PASS",
+      "duration": 4,
+      "result": {}
+    },
+    {
+      "name": "Blocking Mechanism",
+      "status": "PASS",
+      "duration": 1,
+      "result": {}
+    },
+    {
+      "name": "HTTP Headers Response",
+      "status": "PASS",
+      "duration": 1,
+      "result": {}
+    },
+    {
+      "name": "Recovery After Limit",
+      "status": "PASS",
+      "duration": 1,
+      "result": {}
+    },
+    {
+      "name": "Burst Attack Protection",
+      "status": "PASS",
+      "duration": 1,
+      "result": {}
+    },
+    {
+      "name": "Sustained Attack Protection",
+      "status": "PASS",
+      "duration": 1,
+      "result": {}
+    }
+  ],
+  "summary": {
+    "total": 12,
+    "passed": 12,
+    "failed": 0,
+    "passRate": "100.00"
+  },
+  "systemStats": {
+    "metrics": {
+      "totalRequests": 100,
+      "blockedRequests": 0,
+      "rateLimitHits": 0,
+      "lastReset": 1765309645831
+    },
+    "buckets": 2,
+    "blocks": 0,
+    "violations": 0,
+    "config": {
+      "tokenBucket": {
+        "default": {
+          "tokens": 100,
+          "refillRate": 1000,
+          "maxTokens": 100,
+          "windowMs": 600
+        },
+        "auth": {
+          "tokens": 5,
+          "refillRate": 10,
+          "maxTokens": 5,
+          "windowMs": 600
+        },
+        "public": {
+          "tokens": 1000,
+          "refillRate": 1670,
+          "maxTokens": 1000,
+          "windowMs": 36000
+        },
+        "sensitive": {
+          "tokens": 10,
+          "refillRate": 17,
+          "maxTokens": 10,
+          "windowMs": 36000
+        },
+        "global": {
+          "tokens": 10000,
+          "refillRate": 16700,
+          "maxTokens": 10000,
+          "windowMs": 36000
+        }
+      },
+      "blocking": {
+        "enabled": true,
+        "duration": 9000,
+        "maxViolations": 5,
+        "decayTime": 36000
+      },
+      "monitoring": {
+        "enabled": true,
+        "alertThreshold": 80,
+        "logLevel": "info",
+        "metricsRetention": 86400000
+      }
+    }
+  }
+}

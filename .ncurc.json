@@ -1,0 +1,19 @@
+{
+  "upgrade": true,
+  "target": "latest",
+  "reject": [
+    "eslint",
+    "prettier",
+    "jest"
+  ],
+  "filter": "*",
+  "format": "group",
+  "loglevel": "info",
+  "peer": true,
+  "doctor": false,
+  "silent": false,
+  "jsonUpgraded": true,
+  "minimal": false,
+  "timeout": 30000,
+  "retry": 3
+}

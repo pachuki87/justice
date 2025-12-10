@@ -1,0 +1,267 @@
+# Configuración principal de build
+[build]
+  publish = "."
+  functions = "netlify/functions"
+  command = "echo 'Build completed - Static site ready for deployment'"
+  command_origin = "config"
+
+# Configuración de entorno
+[build.environment]
+  NODE_VERSION = "18"
+  NPM_VERSION = "9"
+  NODE_OPTIONS = "--max-old-space-size=4096"
+
+# Plugins de optimización y seguridad
+[[plugins]]
+  package = "@netlify/plugin-lighthouse"
+  [plugins.inputs]
+    output_path = "lighthouse.html"
+
+[[plugins]]
+  package = "@netlify/plugin-sitemap"
+  [plugins.inputs]
+    buildDir = "."
+    exclude = ["/netlify/**"]
+
+[[plugins]]
+  package = "@netlify/plugin-minify-html"
+  [plugins.inputs]
+    minify_on = "build"
+
+# Headers de seguridad fundamentales para toda la aplicación
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Content Security Policy (CSP) - Política estricta de seguridad de contenido
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://api.openai.com; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+    
+    # X-Frame-Options - Prevenir clickjacking
+    X-Frame-Options = "DENY"
+    
+    # X-Content-Type-Options - Prevenir MIME-sniffing
+    X-Content-Type-Options = "nosniff"
+    
+    # X-XSS-Protection - Activar protección XSS del navegador
+    X-XSS-Protection = "1; mode=block"
+    
+    # Strict-Transport-Security (HSTS) - Forzar HTTPS
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    
+    # Referrer-Policy - Controlar información de referer
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+    # Permissions-Policy - Controlar acceso a APIs del navegador
+    Permissions-Policy = "geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=(), ambient-light-sensor=(), autoplay=(), encrypted-media=(), fullscreen=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), web-share=(), xr-spatial-tracking=()"
+    
+    # Cross-Origin-Embedder-Policy - Controlar embeddings cross-origin
+    Cross-Origin-Embedder-Policy = "require-corp"
+    
+    # Cross-Origin-Opener-Policy - Controlar ventanas emergentes
+    Cross-Origin-Opener-Policy = "same-origin"
+    
+    # Cross-Origin-Resource-Policy - Controlar acceso a recursos
+    Cross-Origin-Resource-Policy = "same-origin"
+    
+    # Additional security headers
+    X-Permitted-Cross-Domain-Policies = "none"
+    X-Download-Options = "noopen"
+    X-Robots-Tag = "noindex, nofollow, nosnippet, noarchive, notranslate, noimageindex"
+    
+    # Performance headers
+    Vary = "Accept-Encoding"
+    Server = "Netlify"
+
+# Headers específicos para APIs con seguridad reforzada
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    # Headers CORS restrictivos para APIs
+    Access-Control-Allow-Origin = "self"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type, Authorization, X-Requested-With, X-CSRF-Token"
+    Access-Control-Allow-Credentials = "true"
+    Access-Control-Max-Age = "86400"
+    
+    # Security headers para endpoints sensibles
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+    # Cache control para respuestas de API
+    Cache-Control = "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0"
+    Pragma = "no-cache"
+    Expires = "0"
+    
+    # Rate limiting headers
+    X-RateLimit-Limit = "1000"
+    X-RateLimit-Remaining = "999"
+    X-RateLimit-Reset = "3600"
+
+# Headers para contenido estático con optimización de caché
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/lib/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    X-Content-Type-Options = "nosniff"
+
+# Headers para archivos HTML con caché limitada
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=3600, must-revalidate"
+    X-Content-Type-Options = "nosniff"
+
+# Redirecciones API
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+  force = true
+
+# Redirecciones SEO y de mantenimiento
+[[redirects]]
+  from = "/home"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/admin"
+  to = "/index.html#admin"
+  status = 302
+
+[[redirects]]
+  from = "/login"
+  to = "/index.html#login"
+  status = 302
+
+# Redirección para SPA (Single Page Application)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  conditions = {Role = ["admin", "user"]}
+
+# Manejo de errores personalizado
+[[redirects]]
+  from = "/404"
+  to = "/index.html#404"
+  status = 404
+
+[[redirects]]
+  from = "/500"
+  to = "/index.html#500"
+  status = 500
+
+# Configuración de entorno para producción
+[context.production]
+  [context.production.environment]
+    NODE_ENV = "production"
+    API_URL = "https://justice2.netlify.app"
+    
+  [context.production.headers]
+    for = "/*"
+    [context.production.headers.values]
+      # Headers más restrictivos para producción
+      Content-Security-Policy = "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' https://api.openai.com; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+      Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
+# Configuración de entorno para desarrollo
+[context.development]
+  [context.development.environment]
+    NODE_ENV = "development"
+    API_URL = "http://localhost:8888"
+    
+  [context.development.headers]
+    for = "/*"
+    [context.development.headers.values]
+      # Headers más permisivos para desarrollo
+      Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self' ws: wss: https://api.openai.com; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+      Cache-Control = "no-cache, no-store, must-revalidate"
+
+# Configuración de entorno para deploy preview
+[context.deploy-preview]
+  [context.deploy-preview.environment]
+    NODE_ENV = "staging"
+    API_URL = "https://deploy-preview-justice2.netlify.app"
+
+# Configuración de Edge Functions
+[[edge_functions]]
+  function = "api"
+  path = "/api/*"
+
+[[edge_functions]]
+  function = "auth"
+  path = "/api/auth/*"
+
+# Configuración de variables de entorno por contexto
+[context.production.environment]
+  DATABASE_URL = "@database_url"
+  JWT_SECRET = "@jwt_secret"
+  OPENAI_API_KEY = "@openai_api_key"
+
+[context.development.environment]
+  DATABASE_URL = "postgresql://localhost:5432/justice2_dev"
+  JWT_SECRET = "dev-secret-key"
+  OPENAI_API_KEY = "dev-openai-key"
+
+# Configuración de procesamiento de formularios
+[build.processing]
+  skip_processing = false
+  css = { bundle = true, minify = true }
+  js = { bundle = true, minify = true }
+  html = { pretty_urls = true }
+  images = { compress = true }
+
+# Configuración de optimización de imágenes
+[build.processing.images]
+  compress = true
+  compress_quality = 80
+  strip_metadata = true
+
+# Configuración de bundle optimizado
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
+
+# Configuración de seguridad adicional
+[build]
+  [build.processing]
+    [build.processing.skip]
+      css = false
+      js = false
+      html = false
+      images = false

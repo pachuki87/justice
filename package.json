@@ -1,0 +1,158 @@
+{
+  "name": "justice-2",
+  "version": "1.0.0",
+  "description": "Justice 2 es una plataforma jurídica completa basada en el diseño visual original de Justice, pero con funcionalidades dinámicas avanzadas y conexión con el sistema AI Replicator existente en `srv1024767.hstgr.cloud`.",
+  "main": "index.html",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "start": "netlify dev",
+    "dev": "netlify dev",
+    "build": "echo 'Build completed - Static site ready for deployment'",
+    "deploy": "netlify deploy --prod",
+    "deploy:staging": "netlify deploy",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint . --ext .js,.html --max-warnings 0",
+    "lint:fix": "eslint . --ext .js,.html --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "security": "npm audit && npm audit --audit-level moderate",
+    "security:fix": "npm audit fix",
+    "update": "npm-check-updates -u",
+    "update:check": "npm-check-updates",
+    "clean": "rm -rf node_modules package-lock.json && npm install",
+    "validate": "npm run lint && npm run test && npm run security",
+    "prepare": "npm run validate",
+    "precommit": "npm run validate",
+    "prepush": "npm run validate",
+    "postinstall": "echo 'Dependencies installed successfully'"
+  },
+  "keywords": [
+    "justice",
+    "legal",
+    "platform",
+    "ai",
+    "replicator",
+    "juridica",
+    "abogados",
+    "casos",
+    "documentos",
+    "analytics",
+    "security",
+    "netlify",
+    "serverless",
+    "javascript",
+    "html5",
+    "css3",
+    "responsive"
+  ],
+  "author": {
+    "name": "Justice 2 Development Team",
+    "email": "dev@justice2.com",
+    "url": "https://justice2.example.com"
+  },
+  "license": "ISC",
+  "private": true,
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie <= 11"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/justice2/justice-platform.git"
+  },
+  "bugs": {
+    "url": "https://github.com/justice2/justice-platform/issues"
+  },
+  "homepage": "https://justice2.netlify.app",
+  "config": {
+    "port": 8888,
+    "environment": "development"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.16.3",
+    "serverless-http": "^4.0.0",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-html": "^8.1.1",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "netlify-cli": "^17.37.2",
+    "npm-check-updates": "^16.14.20",
+    "prettier": "^3.2.5"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "collectCoverageFrom": [
+      "js/**/*.js",
+      "components/**/*.js",
+      "netlify/functions/**/*.js",
+      "!**/node_modules/**",
+      "!**/coverage/**"
+    ],
+    "coverageDirectory": "coverage",
+    "coverageReporters": [
+      "text",
+      "lcov",
+      "html"
+    ],
+    "testMatch": [
+      "**/test*.js",
+      "**/*.test.js"
+    ],
+    "verbose": true
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint:recommended",
+      "prettier"
+    ],
+    "env": {
+      "browser": true,
+      "node": true,
+      "es2022": true,
+      "jest": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 2022,
+      "sourceType": "module"
+    },
+    "rules": {
+      "no-console": "warn",
+      "no-unused-vars": "error",
+      "prefer-const": "error",
+      "no-var": "error"
+    }
+  },
+  "prettier": {
+    "semi": true,
+    "trailingComma": "es5",
+    "singleQuote": true,
+    "printWidth": 80,
+    "tabWidth": 2,
+    "useTabs": false
+  },
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/sponsors/justice2"
+  }
+}

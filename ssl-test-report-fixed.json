@@ -1,0 +1,71 @@
+{
+  "timestamp": "2025-12-09T18:05:54.950Z",
+  "duration": 27,
+  "summary": {
+    "total": 5,
+    "passed": 5,
+    "failed": 0,
+    "successRate": 100
+  },
+  "results": [
+    {
+      "name": "Detección de Errores SSL",
+      "status": "PASS",
+      "duration": 3,
+      "message": "Detección de errores SSL funciona correctamente"
+    },
+    {
+      "name": "Backoff Exponencial",
+      "status": "PASS",
+      "duration": 6,
+      "message": "Backoff exponencial correcto: 1s, 1s, 3s, 6s, 15s"
+    },
+    {
+      "name": "Detección de Entorno",
+      "status": "PASS",
+      "duration": 2,
+      "message": "Detección de entorno correcta: development"
+    },
+    {
+      "name": "Sistema de Datos Mock",
+      "status": "PASS",
+      "duration": 1,
+      "message": "Sistema mock funcional: 5 casos, 3 documentos, 3 estadísticas"
+    },
+    {
+      "name": "Sistema de Notificaciones",
+      "status": "PASS",
+      "duration": 0,
+      "message": "Sistema de notificaciones funcional: 4 notificaciones creadas"
+    }
+  ],
+  "recommendations": [
+    "✅ Todas las funcionalidades SSL están operativas. El sistema está listo para producción."
+  ],
+  "logs": [
+    {
+      "timestamp": "2025-12-09T18:05:54.931Z",
+      "message": "Iniciando pruebas de detección de errores SSL"
+    },
+    {
+      "timestamp": "2025-12-09T18:05:54.935Z",
+      "message": "Iniciando pruebas de backoff exponencial"
+    },
+    {
+      "timestamp": "2025-12-09T18:05:54.944Z",
+      "message": "Iniciando prueba de detección de entorno"
+    },
+    {
+      "timestamp": "2025-12-09T18:05:54.946Z",
+      "message": "Entorno detectado: development"
+    },
+    {
+      "timestamp": "2025-12-09T18:05:54.946Z",
+      "message": "Iniciando pruebas de sistema de datos mock"
+    },
+    {
+      "timestamp": "2025-12-09T18:05:54.947Z",
+      "message": "Iniciando pruebas de sistema de notificaciones"
+    }
+  ]
+}

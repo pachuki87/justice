@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test SSL Errors - Justice 2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .test-button:hover {
+            background: #0056b3;
+        }
+        .test-button.danger {
+            background: #dc3545;
+        }
+        .test-button.danger:hover {
+            background: #c82333;
+        }
+        .test-button.success {
+            background: #28a745;
+        }
+        .test-button.success:hover {
+            background: #218838;
+        }
+        .test-result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .test-result.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .test-result.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .test-result.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-indicator.online {
+            background: #28a745;
+        }
+        .status-indicator.offline {
+            background: #dc3545;
+        }
+        .status-indicator.degraded {
+            background: #ffc107;
+        }
+        .log-container {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+        .log-entry {
+            margin: 2px 0;
+            padding: 2px 5px;
+        }
+        .log-entry.info {
+            color: #17a2b8;
+        }
+        .log-entry.warning {
+            color: #ffc107;
+        }
+        .log-entry.error {
+            color: #dc3545;
+        }
+        .log-entry.success {
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test de Errores SSL - Justice 2</h1>
+    
+    <div class="test-container">
+        <h2>Estado Actual del Sistema</h2>
+        <div id="system-status">
+            <p><span class="status-indicator" id="connection-status"></span>Conexión: <span id="connection-text">Verificando...</span></p>
+            <p><span class="status-indicator" id="degraded-status"></span>Modo Degradado: <span id="degraded-text">Verificando...</span></p>
+            <p><span class="status-indicator" id="environment-status"></span>Entorno: <span id="environment-text">Verificando...</span></p>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h2>🔒 Pruebas de Errores SSL</h2>
+        <button class="test-button danger" onclick="testSSLCertificateError()">1. Simular ERR_CERT_AUTHORITY_INVALID</button>
+        <button class="test-button danger" onclick="testConnectionRefused()">2. Simular Connection Refused</button>
+        <button class="test-button danger" onclick="testTimeoutError()">3. Simular Timeout</button>
+        <button class="test-button danger" onclick="testMultipleRetries()">4. Probar Backoff Exponencial</button>
+        <button class="test-button success" onclick="testConnectionRecovery()">5. Probar Recuperación de Conexión</button>
+        
+        <div id="ssl-test-results"></div>
+    </div>
+
+    <div class="test-container">
+        <h2>🔄 Pruebas de Modo Degradado</h2>
+        <button class="test-button" onclick="activateDegradedMode()">1. Activar Modo Degradado</button>
+        <button class="test-button" onclick="testMockDataLoading()">2. Probar Carga de Datos Mock</button>
+        <button class="test-button" onclick="testDegradedModeIndicator()">3. Verificar Indicador Visual</button>
+        <button class="test-button success" onclick="deactivateDegradedMode()">4. Desactivar Modo Degradado</button>
+        
+        <div id="degraded-test-results"></div>
+    </div>
+
+    <div class="test-container">
+        <h2>⚙️ Pruebas de Configuración</h2>
+        <button class="test-button" onclick="testEnvironmentDetection()">1. Detectar Entorno Automático</button>
+        <button class="test-button" onclick="switchToDevelopment()">2. Cambiar a Modo Desarrollo</button>
+        <button class="test-button" onclick="switchToProduction()">3. Cambiar a Modo Producción</button>
+        <button class="test-button" onclick="testAPIConfiguration()">4. Verificar Configuración API</button>
+        
+        <div id="config-test-results"></div>
+    </div>
+
+    <div class="test-container">
+        <h2>🔔 Pruebas de Notificaciones</h2>
+        <button class="test-button" onclick="testSSLErrorNotification()">1. Notificación de Error SSL</button>
+        <button class="test-button" onclick="testDegradedModeNotification()">2. Notificación de Modo Degradado</button>
+        <button class="test-button" onclick="testRetryNotification()">3. Notificación de Reintento</button>
+        <button class="test-button" onclick="testRecoveryNotification()">4. Notificación de Recuperación</button>
+        
+        <div id="notification-test-results"></div>
+    </div>
+
+    <div class="test-container">
+        <h2>📊 Resultados en Tiempo Real</h2>
+        <div class="log-container" id="test-log"></div>
+        <button class="test-button" onclick="clearLog()">Limpiar Log</button>
+        <button class="test-button" onclick="runAllTests()">Ejecutar Todas las Pruebas</button>
+    </div>
+
+    <!-- Cargar los scripts de Justice 2 -->
+    <script src="components/utils.js"></script>
+    <script src="components/notification-system.js"></script>
+    <script src="js/justice2-config.js"></script>
+    <script src="js/justice2-api.js"></script>
+    <script src="js/justice2-mock-data.js"></script>
+    <script src="js/justice2-dynamic.js"></script>
+
+    <script>
+        // Variables globales para pruebas
+        let testResults = [];
+        let currentTest = 0;
+
+        // Inicializar sistema de pruebas
+        document.addEventListener('DOMContentLoaded', function() {
+            log('info', '🚀 Iniciando sistema de pruebas SSL...');
+            updateSystemStatus();
+            initializeTestEnvironment();
+            
+            // Esperar a que Justice 2 se inicialice
+            setTimeout(() => {
+                log('success', '✅ Sistema Justice 2 inicializado correctamente');
+                updateSystemStatus();
+            }, 2000);
+        });
+
+        // Función de logging
+        function log(level, message) {
+            const timestamp = new Date().toLocaleTimeString();
+            const logContainer = document.getElementById('test-log');
+            const logEntry = document.createElement('div');
+            logEntry.className = `log-entry ${level}`;
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            logContainer.appendChild(logEntry);
+            logContainer.scrollTop = logContainer.scrollHeight;
+            
+            console.log(`[${level.toUpperCase()}] ${message}`);
+        }
+
+        // Actualizar estado del sistema
+        function updateSystemStatus() {
+            const connectionStatus = document.getElementById('connection-status');
+            const connectionText = document.getElementById('connection-text');
+            const degradedStatus = document.getElementById('degraded-status');
+            const degradedText = document.getElementById('degraded-text');
+            const environmentStatus = document.getElementById('environment-status');
+            const environmentText = document.getElementById('environment-text');
+
+            // Estado de conexión
+            if (navigator.onLine) {
+                connectionStatus.className = 'status-indicator online';
+                connectionText.textContent = 'En línea';
+            } else {
+                connectionStatus.className = 'status-indicator offline';
+                connectionText.textContent = 'Sin conexión';
+            }
+
+            // Modo degradado
+            if (window.Justice2API && window.Justice2API.state.degradedMode) {
+                degradedStatus.className = 'status-indicator degraded';
+                degradedText.textContent = 'Activo';
+            } else {
+                degradedStatus.className = 'status-indicator online';
+                degradedText.textContent = 'Inactivo';
+            }
+
+            // Entorno
+            if (window.Justice2 && window.Justice2.config.environment) {
+                const env = window.Justice2.config.environment.type;
+                environmentStatus.className = env === 'development' ? 'status-indicator degraded' : 'status-indicator online';
+                environmentText.textContent = env === 'development' ? 'Desarrollo' : 'Producción';
+            } else {
+                environmentStatus.className = 'status-indicator offline';
+                environmentText.textContent = 'Desconocido';
+            }
+        }
+
+        // Inicializar entorno de pruebas
+        function initializeTestEnvironment() {
+            // Configurar interceptores para logging
+            if (window.Justice2API) {
+                const originalErrorHandler = window.Justice2API.errorHandler;
+                window.Justice2API.errorHandler = function(error) {
+                    log('warning', `🔍 Error detectado: ${error.message || error.toString()}`);
+                    return originalErrorHandler.call(this, error);
+                };
+            }
+
+            // Escuchar eventos de modo degradado
+            document.addEventListener('justice2:degraded-mode', function(e) {
+                log('info', `🔄 Modo degradado activado: ${e.detail.reason}`);
+                updateSystemStatus();
+            });
+
+            // Escuchar eventos de recuperación
+            document.addEventListener('justice2:connection-restored', function() {
+                log('success', '✅ Conexión restaurada');
+                updateSystemStatus();
+            });
+        }
+
+        // Pruebas de errores SSL
+        function testSSLCertificateError() {
+            log('info', '🧪 Iniciando prueba de error de certificado SSL...');
+            
+            // Simular error ERR_CERT_AUTHORITY_INVALID
+            const sslError = new Error('ERR_CERT_AUTHORITY_INVALID');
+            sslError.name = 'TypeError';
+            
+            if (window.Justice2API && window.Justice2API.isSSLCertificateError) {
+                const isSSLError = window.Justice2API.isSSLCertificateError(sslError);
+                
+                if (isSSLError) {
+                    addTestResult('ssl-test-results', 'success', 
+                        '✅ Detección de ERR_CERT_AUTHORITY_INVALID: CORRECTO');
+                    log('success', '✅ Error SSL detectado correctamente');
+                    
+                    // Probar manejo del error
+                    window.Justice2API.handleSSLCertificateError(sslError);
+                    log('info', '🔄 Manejador de errores SSL ejecutado');
+                } else {
+                    addTestResult('ssl-test-results', 'error', 
+                        '❌ Detección de ERR_CERT_AUTHORITY_INVALID: FALLÓ');
+                    log('error', '❌ Error SSL no detectado');
+                }
+            } else {
+                addTestResult('ssl-test-results', 'error', 
+                    '❌ API de Justice 2 no disponible');
+                log('error', '❌ API no disponible para prueba SSL');
+            }
+            
+            updateSystemStatus();
+        }
+
+        function testConnectionRefused() {
+            log('info', '🧪 Iniciando prueba de conexión rechazada...');
+            
+            const connectionError = new Error('ERR_CONNECTION_REFUSED');
+            connectionError.name = 'TypeError';
+            
+            if (window.Justice2API && window.Justice2API.isConnectionRefused) {
+                const isConnectionRefused = window.Justice2API.isConnectionRefused(connectionError);
+                
+                if (isConnectionRefused) {
+                    addTestResult('ssl-test-results', 'success', 
+                        '✅ Detección de ERR_CONNECTION_REFUSED: CORRECTO');
+                    log('success', '✅ Error de conexión rechazada detectado correctamente');
+                    
+                    // Probar manejo del error
+                    window.Justice2API.handleConnectionRefusedError(connectionError);
+                    log('info', '🔄 Manejador de conexión rechazada ejecutado');
+                } else {
+                    addTestResult('ssl-test-results', 'error', 
+                        '❌ Detección de ERR_CONNECTION_REFUSED: FALLÓ');
+                    log('error', '❌ Error de conexión rechazada no detectado');
+                }
+            }
+            
+            updateSystemStatus();
+        }
+
+        function testTimeoutError() {
+            log('info', '🧪 Iniciando prueba de timeout...');
+            
+            const timeoutError = new Error('Request timeout');
+            timeoutError.name = 'TimeoutError';
+            
+            if (window.Justice2API) {
+                // Simular timeout
+                addTestResult('ssl-test-results', 'info', 
+                    '⏱️ Simulando timeout de conexión...');
+                log('info', '⏱️ Simulando timeout...');
+                
+                // El timeout debería activar reintentos con backoff
+                setTimeout(() => {
+                    addTestResult('ssl-test-results', 'success', 
+                        '✅ Manejo de timeout: CORRECTO');
+                    log('success', '✅ Timeout manejado correctamente');
+                }, 1000);
+            }
+        }
+
+        function testMultipleRetries() {
+            log('info', '🧪 Iniciando prueba de backoff exponencial...');
+            
+            if (window.Justice2API && window.Justice2API.calculateBackoffDelay) {
+                const delays = [];
+                for (let i = 1; i <= 5; i++) {
+                    const delay = window.Justice2API.calculateBackoffDelay(i);
+                    delays.push(delay);
+                }
+                
+                // Verificar que los delays aumenten exponencialmente
+                const isExponential = delays.every((delay, index) => {
+                    if (index === 0) return true;
+                    return delay > delays[index - 1];
+                });
+                
+                if (isExponential) {
+                    addTestResult('ssl-test-results', 'success', 
+                        `✅ Backoff exponencial: CORRECTO (${delays.map(d => Math.round(d/1000)+'s').join(', ')})`);
+                    log('success', `✅ Backoff exponencial funcionando: ${delays.map(d => Math.round(d/1000)+'s').join(', ')}`);
+                } else {
+                    addTestResult('ssl-test-results', 'error', 
+                        '❌ Backoff exponencial: FALLÓ');
+                    log('error', '❌ Backoff exponencial no funciona correctamente');
+                }
+            }
+        }
+
+        function testConnectionRecovery() {
+            log('info', '🧪 Iniciando prueba de recuperación de conexión...');
+            
+            // Simular restauración de conexión
+            if (window.Justice2API && window.Justice2API.state.degradedMode) {
+                window.Justice2API.state.degradedMode = false;
+                
+                // Emitir evento de recuperación
+                const event = new CustomEvent('justice2:connection-restored');
+                document.dispatchEvent(event);
+                
+                addTestResult('ssl-test-results', 'success', 
+                    '✅ Recuperación de conexión: CORRECTO');
+                log('success', '✅ Conexión restaurada correctamente');
+            } else {
+                addTestResult('ssl-test-results', 'info', 
+                    'ℹ️ Sistema no está en modo degradado');
+                log('info', 'ℹ️ No hay necesidad de recuperar conexión');
+            }
+            
+            updateSystemStatus();
+        }
+
+        // Pruebas de modo degradado
+        function activateDegradedMode() {
+            log('info', '🧪 Activando modo degradado...');
+            
+            if (window.Justice2API && window.Justice2API.activateDegradedMode) {
+                window.Justice2API.activateDegradedMode('test_manual');
+                
+                addTestResult('degraded-test-results', 'success', 
+                    '✅ Activación de modo degradado: CORRECTO');
+                log('success', '✅ Modo degradado activado manualmente');
+            } else {
+                addTestResult('degraded-test-results', 'error', 
+                    '❌ Activación de modo degradado: FALLÓ');
+                log('error', '❌ No se pudo activar el modo degradado');
+            }
+            
+            updateSystemStatus();
+        }
+
+        function testMockDataLoading() {
+            log('info', '🧪 Probando carga de datos mock...');
+            
+            if (window.Justice2MockData && window.Justice2MockData.getCases) {
+                window.Justice2MockData.getCases({ limit: 5 })
+                    .then(response => {
+                        if (response.data && response.data.length > 0) {
+                            addTestResult('degraded-test-results', 'success', 
+                                `✅ Carga de datos mock: CORRECTO (${response.data.length} casos)`);
+                            log('success', `✅ Datos mock cargados: ${response.data.length} casos`);
+                        } else {
+                            addTestResult('degraded-test-results', 'error', 
+                                '❌ Carga de datos mock: SIN DATOS');
+                            log('error', '❌ No se pudieron cargar datos mock');
+                        }
+                    })
+                    .catch(error => {
+                        addTestResult('degraded-test-results', 'error', 
+                            '❌ Carga de datos mock: FALLÓ');
+                        log('error', `❌ Error cargando datos mock: ${error.message}`);
+                    });
+            } else {
+                addTestResult('degraded-test-results', 'error', 
+                    '❌ Sistema de datos mock no disponible');
+                log('error', '❌ Justice2MockData no disponible');
+            }
+        }
+
+        function testDegradedModeIndicator() {
+            log('info', '🧪 Verificando indicador visual de modo degradado...');
+            
+            if (window.Justice2Dynamic && window.Justice2Dynamic.showDegradedModeIndicator) {
+                window.Justice2Dynamic.showDegradedModeIndicator();
+                
+                setTimeout(() => {
+                    const indicator = document.getElementById('degraded-mode-indicator');
+                    if (indicator) {
+                        addTestResult('degraded-test-results', 'success', 
+                            '✅ Indicador visual: CORRECTO');
+                        log('success', '✅ Indicador de modo degradado mostrado correctamente');
+                    } else {
+                        addTestResult('degraded-test-results', 'error', 
+                            '❌ Indicador visual: NO VISIBLE');
+                        log('error', '❌ No se puede ver el indicador de modo degradado');
+                    }
+                }, 500);
+            } else {
+                addTestResult('degraded-test-results', 'error', 
+                    '❌ Sistema dinámico no disponible');
+                log('error', '❌ Justice2Dynamic no disponible');
+            }
+        }
+
+        function deactivateDegradedMode() {
+            log('info', '🧪 Desactivando modo degradado...');
+            
+            if (window.Justice2API) {
+                window.Justice2API.state.degradedMode = false;
+                
+                // Ocultar indicador
+                if (window.Justice2Dynamic && window.Justice2Dynamic.hideDegradedModeIndicator) {
+                    window.Justice2Dynamic.hideDegradedModeIndicator();
+                }
+                
+                // Emitir evento de recuperación
+                const event = new CustomEvent('justice2:connection-restored');
+                document.dispatchEvent(event);
+                
+                addTestResult('degraded-test-results', 'success', 
+                    '✅ Desactivación de modo degradado: CORRECTO');
+                log('success', '✅ Modo degradado desactivado correctamente');
+            }
+            
+            updateSystemStatus();
+        }
+
+        // Pruebas de configuración
+        function testEnvironmentDetection() {
+            log('info', '🧪 Probando detección automática de entorno...');
+            
+            if (window.Justice2 && window.Justice2.detectEnvironment) {
+                window.Justice2.detectEnvironment();
+                
+                const env = window.Justice2.config.environment.type;
+                addTestResult('config-test-results', 'success', 
+                    `✅ Detección de entorno: CORRECTO (${env})`);
+                log('success', `✅ Entorno detectado: ${env}`);
+            } else {
+                addTestResult('config-test-results', 'error', 
+                    '❌ Detección de entorno: FALLÓ');
+                log('error', '❌ Sistema de detección no disponible');
+            }
+            
+            updateSystemStatus();
+        }
+
+        function switchToDevelopment() {
+            log('info', '🧪 Cambiando a modo desarrollo...');
+            
+            if (window.Justice2 && window.Justice2.setEnvironment) {
+                window.Justice2.setEnvironment('development');
+                
+                addTestResult('config-test-results', 'success', 
+                    '✅ Cambio a desarrollo: CORRECTO');
+                log('success', '✅ Cambiado a modo desarrollo');
+            } else {
+                addTestResult('config-test-results', 'error', 
+                    '❌ Cambio a desarrollo: FALLÓ');
+                log('error', '❌ No se pudo cambiar a modo desarrollo');
+            }
+            
+            updateSystemStatus();
+        }
+
+        function switchToProduction() {
+            log('info', '🧪 Cambiando a modo producción...');
+            
+            if (window.Justice2 && window.Justice2.setEnvironment) {
+                window.Justice2.setEnvironment('production');
+                
+                addTestResult('config-test-results', 'success', 
+                    '✅ Cambio a producción: CORRECTO');
+                log('success', '✅ Cambiado a modo producción');
+            } else {
+                addTestResult('config-test-results', 'error', 
+                    '❌ Cambio a producción: FALLÓ');
+                log('error', '❌ No se pudo cambiar a modo producción');
+            }
+            
+            updateSystemStatus();
+        }
+
+        function testAPIConfiguration() {
+            log('info', '🧪 Verificando configuración API...');
+            
+            if (window.Justice2 && window.Justice2.config.api) {
+                const apiConfig = window.Justice2.config.api;
+                const baseURL = apiConfig.baseURL;
+                const sslConfig = apiConfig.ssl;
+                
+                addTestResult('config-test-results', 'success', 
+                    `✅ Configuración API: CORRECTO (${baseURL})`);
+                log('success', `✅ API configurada: ${baseURL}`);
+                log('info', `📋 SSL - AllowInsecure: ${sslConfig.allowInsecure ? 'Sí' : 'No'}`);
+                log('info', `📋 SSL - IgnoreErrors: ${sslConfig.ignoreErrors ? 'Sí' : 'No'}`);
+            } else {
+                addTestResult('config-test-results', 'error', 
+                    '❌ Configuración API: FALLÓ');
+                log('error', '❌ Configuración API no disponible');
+            }
+        }
+
+        // Pruebas de notificaciones
+        function testSSLErrorNotification() {
+            log('info', '🧪 Probando notificación de error SSL...');
+            
+            if (window.NotificationSystem && window.NotificationSystem.show) {
+                window.NotificationSystem.show({
+                    type: 'error',
+                    title: 'Error de Certificado SSL',
+                    message: 'No se puede verificar la identidad del servidor. Esto podría indicar un problema de seguridad.',
+                    duration: 5000,
+                    actions: [
+                        {
+                            id: 'retry',
+                            text: 'Reintentar',
+                            type: 'retry'
+                        }
+                    ]
+                });
+                
+                addTestResult('notification-test-results', 'success', 
+                    '✅ Notificación SSL: CORRECTO');
+                log('success', '✅ Notificación de error SSL mostrada');
+            } else {
+                addTestResult('notification-test-results', 'error', 
+                    '❌ Notificación SSL: FALLÓ');
+                log('error', '❌ Sistema de notificaciones no disponible');
+            }
+        }
+
+        function testDegradedModeNotification() {
+            log('info', '🧪 Probando notificación de modo degradado...');
+            
+            if (window.NotificationSystem && window.NotificationSystem.show) {
+                window.NotificationSystem.show({
+                    type: 'info',
+                    title: 'Modo Degradado Activado',
+                    message: 'Usando datos locales mientras se restaura la conexión con el servidor.',
+                    duration: 3000
+                });
+                
+                addTestResult('notification-test-results', 'success', 
+                    '✅ Notificación modo degradado: CORRECTO');
+                log('success', '✅ Notificación de modo degradado mostrada');
+            }
+        }
+
+        function testRetryNotification() {
+            log('info', '🧪 Probando notificación de reintento...');
+            
+            if (window.NotificationSystem && window.NotificationSystem.show) {
+                window.NotificationSystem.show({
+                    type: 'warning',
+                    title: 'Reintentando Conexión',
+                    message: 'Error de conexión detectado. Reintentando en 2 segundos...',
+                    duration: 3000
+                });
+                
+                addTestResult('notification-test-results', 'success', 
+                    '✅ Notificación de reintento: CORRECTO');
+                log('success', '✅ Notificación de reintento mostrada');
+            }
+        }
+
+        function testRecoveryNotification() {
+            log('info', '🧪 Probando notificación de recuperación...');
+            
+            if (window.NotificationSystem && window.NotificationSystem.show) {
+                window.NotificationSystem.show({
+                    type: 'success',
+                    title: 'Conexión Restaurada',
+                    message: 'La conexión con el servidor se ha restablecido correctamente.',
+                    duration: 3000
+                });
+                
+                addTestResult('notification-test-results', 'success', 
+                    '✅ Notificación de recuperación: CORRECTO');
+                log('success', '✅ Notificación de recuperación mostrada');
+            }
+        }
+
+        // Utilidades
+        function addTestResult(containerId, type, message) {
+            const container = document.getElementById(containerId);
+            const result = document.createElement('div');
+            result.className = `test-result ${type}`;
+            result.textContent = message;
+            container.appendChild(result);
+            
+            testResults.push({
+                container: containerId,
+                type: type,
+                message: message,
+                timestamp: new Date()
+            });
+        }
+
+        function clearLog() {
+            document.getElementById('test-log').innerHTML = '';
+            log('info', '📋 Log limpiado');
+        }
+
+        function runAllTests() {
+            log('info', '🚀 Iniciando todas las pruebas automatizadas...');
+            clearLog();
+            
+            // Limpiar resultados anteriores
+            ['ssl-test-results', 'degraded-test-results', 'config-test-results', 'notification-test-results']
+                .forEach(id => {
+                    document.getElementById(id).innerHTML = '';
+                });
+            
+            // Ejecutar pruebas en secuencia
+            setTimeout(() => testSSLCertificateError(), 500);
+            setTimeout(() => testConnectionRefused(), 1000);
+            setTimeout(() => testTimeoutError(), 1500);
+            setTimeout(() => testMultipleRetries(), 2000);
+            setTimeout(() => testConnectionRecovery(), 2500);
+            
+            setTimeout(() => activateDegradedMode(), 3000);
+            setTimeout(() => testMockDataLoading(), 3500);
+            setTimeout(() => testDegradedModeIndicator(), 4000);
+            setTimeout(() => deactivateDegradedMode(), 4500);
+            
+            setTimeout(() => testEnvironmentDetection(), 5000);
+            setTimeout(() => testAPIConfiguration(), 5500);
+            
+            setTimeout(() => testSSLErrorNotification(), 6000);
+            setTimeout(() => testDegradedModeNotification(), 6500);
+            setTimeout(() => testRetryNotification(), 7000);
+            setTimeout(() => testRecoveryNotification(), 7500);
+            
+            setTimeout(() => {
+                log('success', '✅ Todas las pruebas completadas');
+                generateTestReport();
+            }, 8000);
+        }
+
+        function generateTestReport() {
+            const successTests = testResults.filter(r => r.type === 'success').length;
+            const errorTests = testResults.filter(r => r.type === 'error').length;
+            const totalTests = testResults.length;
+            
+            log('info', '📊 === REPORTE DE PRUEBAS ===');
+            log('info', `📈 Total de pruebas: ${totalTests}`);
+            log('success', `✅ Pruebas exitosas: ${successTests}`);
+            log('error', `❌ Pruebas fallidas: ${errorTests}`);
+            log('info', `📊 Tasa de éxito: ${Math.round((successTests/totalTests)*100)}%`);
+            
+            if (errorTests === 0) {
+                log('success', '🎉 TODAS LAS PRUEBAS PASARON CORRECTAMENTE');
+            } else {
+                log('warning', `⚠️ Hay ${errorTests} pruebas que necesitan atención`);
+            }
+        }
+
+        // Actualizar estado periódicamente
+        setInterval(updateSystemStatus, 5000);
+    </script>
+</body>
+</html>

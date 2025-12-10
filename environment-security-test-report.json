@@ -1,0 +1,341 @@
+{
+  "timestamp": "2025-12-10T18:00:52.198Z",
+  "summary": {
+    "total": 6,
+    "passed": 1,
+    "failed": 5,
+    "errors": 0,
+    "critical": 2,
+    "successRate": "16.67"
+  },
+  "tests": [
+    {
+      "name": "Detección de Credenciales Hardcodeadas",
+      "status": "FAIL",
+      "message": "Se encontraron 39 credenciales potencialmente expuestas",
+      "details": [
+        {
+          "file": "js/justice2-auth.js",
+          "line": 223,
+          "match": "pass*****tion",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "js/justice2-auth.js",
+          "line": 223,
+          "match": "pass*****tion",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "js/justice2-auth.js",
+          "line": 223,
+          "match": "pass*****tion",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "js/justice2-auth.js",
+          "line": 249,
+          "match": "Pass*****tion",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "js/justice2-auth.js",
+          "line": 223,
+          "match": "pass*****tion",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "js/justice2-auth.js",
+          "line": 249,
+          "match": "Pass*****tion",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "js/justice2-auth.js",
+          "line": 223,
+          "match": "pass*****tion",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "js/justice2-auth.js",
+          "line": 223,
+          "match": "pass*****tion",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "js/justice2-auth.js",
+          "line": 223,
+          "match": "pass*****tion",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "js/justice2-auth.js",
+          "line": 223,
+          "match": "pass*****tion",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "js/justice2-auth.js",
+          "line": 249,
+          "match": "Pass*****tion",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "js/justice2-auth.js",
+          "line": 249,
+          "match": "Pass*****tion",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "js/justice2-auth.js",
+          "line": 249,
+          "match": "Pass*****tion",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "js/justice2-auth.js",
+          "line": 202,
+          "match": "pass*****ment",
+          "pattern": "/[_-]?password[_-]?[=:]\\s*['\"]?[a-zA-Z0-9]{8,}['\"]?/gi"
+        },
+        {
+          "file": "js/justice2-auth.js",
+          "line": 204,
+          "match": "Pass*****ment",
+          "pattern": "/[_-]?password[_-]?[=:]\\s*['\"]?[a-zA-Z0-9]{8,}['\"]?/gi"
+        },
+        {
+          "file": "components/validation-system.js",
+          "line": 309,
+          "match": "http*****/svg",
+          "pattern": "/https?:\\/\\/[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}(\\/[^\\s\"']*)?/g"
+        },
+        {
+          "file": "components/validation-system.js",
+          "line": 309,
+          "match": "http*****/svg",
+          "pattern": "/https?:\\/\\/[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}(\\/[^\\s\"']*)?/g"
+        },
+        {
+          "file": "components/validation-system.js",
+          "line": 405,
+          "match": "pass*****ngth",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "components/validation-system.js",
+          "line": 405,
+          "match": "pass*****ngth",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "components/validation-system.js",
+          "line": 405,
+          "match": "pass*****ngth",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "components/validation-system.js",
+          "line": 405,
+          "match": "pass*****ngth",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "components/validation-system.js",
+          "line": 405,
+          "match": "pass*****ngth",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "components/validation-system.js",
+          "line": 405,
+          "match": "pass*****ngth",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "components/validation-system.js",
+          "line": 405,
+          "match": "pass*****ngth",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "components/validation-system.js",
+          "line": 405,
+          "match": "pass*****ngth",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "components/validation-system.js",
+          "line": 800,
+          "match": "Pass*****ator",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "components/validation-system.js",
+          "line": 405,
+          "match": "pass*****ngth",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "components/validation-system.js",
+          "line": 405,
+          "match": "pass*****ngth",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "components/validation-system.js",
+          "line": 405,
+          "match": "pass*****ngth",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "components/validation-system.js",
+          "line": 405,
+          "match": "pass*****ngth",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "components/validation-system.js",
+          "line": 800,
+          "match": "Pass*****ngth",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "components/validation-system.js",
+          "line": 800,
+          "match": "Pass*****ator",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "components/validation-system.js",
+          "line": 800,
+          "match": "Pass*****ngth",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "components/validation-system.js",
+          "line": 800,
+          "match": "Pass*****ator",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "components/validation-system.js",
+          "line": 405,
+          "match": "pass*****ngth",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "components/validation-system.js",
+          "line": 405,
+          "match": "pass*****ngth",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "components/validation-system.js",
+          "line": 405,
+          "match": "pass*****ngth",
+          "pattern": "/password[_-]?[a-zA-Z0-9]{8,}/gi"
+        },
+        {
+          "file": "components/validation-system.js",
+          "line": 169,
+          "match": "pass*****tion",
+          "pattern": "/[_-]?password[_-]?[=:]\\s*['\"]?[a-zA-Z0-9]{8,}['\"]?/gi"
+        },
+        {
+          "file": "components/validation-system.js",
+          "line": 210,
+          "match": "Pass*****tion",
+          "pattern": "/[_-]?password[_-]?[=:]\\s*['\"]?[a-zA-Z0-9]{8,}['\"]?/gi"
+        }
+      ],
+      "critical": true
+    },
+    {
+      "name": "Sistema de Configuración Segura",
+      "status": "FAIL",
+      "message": "Sistema de configuración tiene problemas",
+      "details": {
+        "loaded": false,
+        "validated": false,
+        "environment": "development",
+        "variablesCount": 5,
+        "tampered": false
+      },
+      "critical": false
+    },
+    {
+      "name": "Carga de Variables de Entorno",
+      "status": "FAIL",
+      "message": "Faltan variables críticas: PRODUCTION_API_URL, DEVELOPMENT_API_URL, VALID_JWT_ISSUERS",
+      "details": {
+        "missing": [
+          "PRODUCTION_API_URL",
+          "DEVELOPMENT_API_URL",
+          "VALID_JWT_ISSUERS"
+        ],
+        "loaded": []
+      },
+      "critical": false
+    },
+    {
+      "name": "Validación de URLs",
+      "status": "FAIL",
+      "message": "Hay URLs potencialmente inválidas",
+      "details": [
+        {
+          "url": "ftp://files.example.com",
+          "valid": false
+        }
+      ],
+      "critical": false
+    },
+    {
+      "name": "Seguridad de LocalStorage",
+      "status": "FAIL",
+      "message": "Credenciales expuestas en localStorage: api_key, password, token",
+      "details": null,
+      "critical": true
+    },
+    {
+      "name": "Exposición de Credenciales en Memoria",
+      "status": "PASS",
+      "message": "No se encontraron credenciales expuestas en variables globales",
+      "details": null,
+      "critical": false
+    }
+  ],
+  "recommendations": [
+    {
+      "priority": "CRITICAL",
+      "title": "Eliminar credenciales expuestas inmediatamente",
+      "description": "Se detectaron credenciales hardcodeadas que representan un riesgo de seguridad crítico",
+      "actions": [
+        "Mover todas las credenciales a variables de entorno",
+        "Implementar el sistema de configuración segura",
+        "Rotar todas las credenciales expuestas",
+        "Verificar logs de acceso por actividad sospechosa"
+      ]
+    },
+    {
+      "priority": "HIGH",
+      "title": "Corregir problemas de configuración",
+      "description": "Hay problemas en el sistema de configuración que deben ser resueltos",
+      "actions": [
+        "Revisar la configuración de variables de entorno",
+        "Verificar que todos los componentes carguen correctamente",
+        "Implementar validaciones adicionales"
+      ]
+    },
+    {
+      "priority": "MEDIUM",
+      "title": "Implementar monitoreo continuo",
+      "description": "Establecer monitoreo regular de seguridad de configuración",
+      "actions": [
+        "Ejecutar estas pruebas regularmente",
+        "Configurar alertas para cambios en configuración",
+        "Implementar scanning automatizado de credenciales"
+      ]
+    }
+  ]
+}

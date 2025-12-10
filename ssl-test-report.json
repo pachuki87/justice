@@ -1,0 +1,48 @@
+{
+  "timestamp": "2025-12-09T17:55:55.052Z",
+  "duration": 44,
+  "summary": {
+    "total": 5,
+    "passed": 3,
+    "failed": 2,
+    "successRate": 60
+  },
+  "results": [
+    {
+      "name": "Detección de Errores SSL",
+      "status": "PASS",
+      "duration": 0,
+      "message": "Detección de errores SSL funciona correctamente"
+    },
+    {
+      "name": "Backoff Exponencial",
+      "status": "PASS",
+      "duration": 0,
+      "message": "Backoff exponencial correcto: 1s, 1s, 4s, 4s, 10s"
+    },
+    {
+      "name": "Detección de Entorno",
+      "status": "FAIL",
+      "duration": 0,
+      "message": "this.log is not a function",
+      "error": "TypeError: this.log is not a function\n    at Object.detectEnvironment (eval at loadJSFile (C:\\Users\\pabli\\OneDrive\\Desktop\\TRABAJO PROGRAMACION\\jose moreno\\justice 2\\automated-ssl-test.js:154:22), <anonymous>:298:22)\n    at SSLTestSuite.testEnvironmentDetection (C:\\Users\\pabli\\OneDrive\\Desktop\\TRABAJO PROGRAMACION\\jose moreno\\justice 2\\automated-ssl-test.js:429:38)\n    at C:\\Users\\pabli\\OneDrive\\Desktop\\TRABAJO PROGRAMACION\\jose moreno\\justice 2\\automated-ssl-test.js:577:57\n    at SSLTestSuite.runTest (C:\\Users\\pabli\\OneDrive\\Desktop\\TRABAJO PROGRAMACION\\jose moreno\\justice 2\\automated-ssl-test.js:230:28)\n    at SSLTestSuite.runAllTests (C:\\Users\\pabli\\OneDrive\\Desktop\\TRABAJO PROGRAMACION\\jose moreno\\justice 2\\automated-ssl-test.js:577:14)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)"
+    },
+    {
+      "name": "Sistema de Datos Mock",
+      "status": "PASS",
+      "duration": 1,
+      "message": "Sistema mock funcional: 5 casos, 3 documentos, 4 estadísticas"
+    },
+    {
+      "name": "Sistema de Notificaciones",
+      "status": "FAIL",
+      "duration": 0,
+      "message": "Cannot set properties of undefined (setting 'id')",
+      "error": "TypeError: Cannot set properties of undefined (setting 'id')\n    at Object.renderNotification (eval at loadJSFile (C:\\Users\\pabli\\OneDrive\\Desktop\\TRABAJO PROGRAMACION\\jose moreno\\justice 2\\automated-ssl-test.js:154:22), <anonymous>:305:40)\n    at Object.show (eval at loadJSFile (C:\\Users\\pabli\\OneDrive\\Desktop\\TRABAJO PROGRAMACION\\jose moreno\\justice 2\\automated-ssl-test.js:154:22), <anonymous>:287:14)\n    at Object.success (eval at loadJSFile (C:\\Users\\pabli\\OneDrive\\Desktop\\TRABAJO PROGRAMACION\\jose moreno\\justice 2\\automated-ssl-test.js:154:22), <anonymous>:433:21)\n    at SSLTestSuite.testNotificationSystem (C:\\Users\\pabli\\OneDrive\\Desktop\\TRABAJO PROGRAMACION\\jose moreno\\justice 2\\automated-ssl-test.js:545:45)\n    at C:\\Users\\pabli\\OneDrive\\Desktop\\TRABAJO PROGRAMACION\\jose moreno\\justice 2\\automated-ssl-test.js:579:62\n    at SSLTestSuite.runTest (C:\\Users\\pabli\\OneDrive\\Desktop\\TRABAJO PROGRAMACION\\jose moreno\\justice 2\\automated-ssl-test.js:230:28)\n    at SSLTestSuite.runAllTests (C:\\Users\\pabli\\OneDrive\\Desktop\\TRABAJO PROGRAMACION\\jose moreno\\justice 2\\automated-ssl-test.js:579:14)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)"
+    }
+  ],
+  "recommendations": [
+    "⚠️ Se encontraron problemas que necesitan atención antes del despliegue.",
+    "🔧 Verificar el sistema de notificaciones en notification-system.js"
+  ]
+}

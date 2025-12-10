@@ -1,0 +1,99 @@
+{
+  "timestamp": "2025-12-09T19:07:49.448Z",
+  "duration": 20,
+  "summary": {
+    "total": 10,
+    "passed": 8,
+    "failed": 2,
+    "successRate": "80.00"
+  },
+  "categories": {
+    "Básico": {
+      "passed": 2,
+      "failed": 2,
+      "total": 4
+    },
+    "Avanzado": {
+      "passed": 4,
+      "failed": 0,
+      "total": 4
+    },
+    "API": {
+      "passed": 2,
+      "failed": 0,
+      "total": 2
+    }
+  },
+  "results": [
+    {
+      "name": "Escape HTML Básico",
+      "status": "FAIL",
+      "message": "Fallaron 4 casos: [{\"index\":1,\"input\":\"<script>alert(\\\"XSS\\\")</script>\",\"expected\":\"<script>alert(\\\"XSS\\\")</script>\",\"actual\":\"\"},{\"index\":2,\"input\":\"<img src=\\\"x\\\" onerror=\\\"alert(1)\\\">\",\"expected\":\"<img src=\\\"x\\\" onerror=\\\"alert(1)\\\">\",\"actual\":\"\"},{\"index\":3,\"input\":\"<div onclick=\\\"alert(1)\\\">Click</div>\",\"expected\":\"<div onclick=\\\"alert(1)\\\">Click</div>\",\"actual\":\"\"},{\"index\":4,\"input\":\"<script>alert(1)</script>\",\"expected\":\"&lt;script&gt;alert(1)&lt;/script&gt;\",\"actual\":\"\"}]",
+      "category": "Básico",
+      "duration": 0
+    },
+    {
+      "name": "Sanitización de URLs",
+      "status": "PASS",
+      "message": "Todas las URLs fueron sanitizadas correctamente",
+      "category": "Básico",
+      "duration": 0
+    },
+    {
+      "name": "Sanitización de Texto",
+      "status": "PASS",
+      "message": "Todo el texto fue sanitizado correctamente",
+      "category": "Básico",
+      "duration": 0
+    },
+    {
+      "name": "Validación de Entrada",
+      "status": "FAIL",
+      "message": "Fallaron 8 casos de validación: [{\"index\":1,\"input\":\"<script>alert(\\\"XSS\\\")</script>\",\"type\":\"name\",\"expected\":false},{\"index\":2,\"input\":\"John Doe\",\"type\":\"name\",\"expected\":true},{\"index\":3,\"input\":\"test@example.com\",\"type\":\"email\",\"expected\":true},{\"index\":4,\"input\":\"invalid-email\",\"type\":\"email\",\"expected\":false},{\"index\":5,\"input\":\"123-456-7890\",\"type\":\"phone\",\"expected\":true},{\"index\":6,\"input\":\"abc\",\"type\":\"phone\",\"expected\":false},{\"index\":7,\"input\":\"https://example.com\",\"type\":\"url\",\"expected\":true},{\"index\":8,\"input\":\"javascript:alert(1)\",\"type\":\"url\",\"expected\":false}]",
+      "category": "Básico",
+      "duration": 0
+    },
+    {
+      "name": "XSS Avanzados",
+      "status": "PASS",
+      "message": "Todos los payloads XSS avanzados fueron neutralizados",
+      "category": "Avanzado",
+      "duration": 0
+    },
+    {
+      "name": "XSS Codificados",
+      "status": "PASS",
+      "message": "Todos los payloads XSS codificados fueron neutralizados",
+      "category": "Avanzado",
+      "duration": 0
+    },
+    {
+      "name": "XSS Basados en DOM",
+      "status": "PASS",
+      "message": "Todos los ataques XSS basados en DOM fueron neutralizados",
+      "category": "Avanzado",
+      "duration": 0
+    },
+    {
+      "name": "Inyección CSS",
+      "status": "PASS",
+      "message": "Todos los ataques de inyección CSS fueron neutralizados",
+      "category": "Avanzado",
+      "duration": 0
+    },
+    {
+      "name": "Creación Segura de Elementos",
+      "status": "PASS",
+      "message": "Todos los elementos fueron creados de forma segura",
+      "category": "API",
+      "duration": 0
+    },
+    {
+      "name": "innerHTML Seguro",
+      "status": "PASS",
+      "message": "Todas las asignaciones de innerHTML fueron seguras",
+      "category": "API",
+      "duration": 0
+    }
+  ]
+}

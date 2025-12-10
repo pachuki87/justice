@@ -1,0 +1,42 @@
+{
+  "timestamp": "2025-12-09T18:13:25.226Z",
+  "summary": {
+    "total": 6,
+    "passed": 0,
+    "failed": 6,
+    "successRate": "0.00",
+    "duration": 5
+  },
+  "results": [
+    {
+      "name": "Gestión de Recursos",
+      "status": "FAIL",
+      "message": "Cannot read properties of undefined (reading 'resourceManager')"
+    },
+    {
+      "name": "Monitoreo de Memoria",
+      "status": "FAIL",
+      "message": "Cannot read properties of undefined (reading 'memoryMonitor')"
+    },
+    {
+      "name": "Cleanup Completo",
+      "status": "FAIL",
+      "message": "Cannot read properties of undefined (reading 'init')"
+    },
+    {
+      "name": "Detección de Memory Leaks",
+      "status": "FAIL",
+      "message": "Cannot read properties of undefined (reading 'memoryMonitor')"
+    },
+    {
+      "name": "Manejo de Eventos",
+      "status": "FAIL",
+      "message": "Cannot read properties of undefined (reading 'components')"
+    },
+    {
+      "name": "Gestión de Intervals",
+      "status": "FAIL",
+      "message": "Cannot read properties of undefined (reading 'config')"
+    }
+  ]
+}

@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Justice 2 - Plataforma Legal con IA</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Plataforma legal avanzada con inteligencia artificial para gestión de casos y documentos" name="keywords">
+    <meta content="Justice 2 - Plataforma legal con inteligencia artificial para abogados y clientes" name="description">
+
+    <!-- Favicon -->
+    <link href="images/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@300;500;700&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    
+    <!-- Justice 2 Additional Styles -->
+    <link href="css/justice2-dynamic.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header Start -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 bg-secondary d-none d-lg-block">
+                <a href="index.html" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
+                    <h1 class="m-0 display-4 text-primary text-uppercase">Justice 2</h1>
+                </a>
+            </div>
+            <div class="col-lg-9">
+                <div class="row bg-white border-bottom d-none d-lg-flex">
+                    <div class="col-lg-7 text-left">
+                        <div class="h-100 d-inline-flex align-items-center py-2 px-3">
+                            <i class="fa fa-envelope text-primary mr-2"></i>
+                            <small>info@justice2.com</small>
+                        </div>
+                        <div class="h-100 d-inline-flex align-items-center py-2 px-2">
+                            <i class="fa fa-phone-alt text-primary mr-2"></i>
+                            <small>+34 900 123 456</small>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 text-right">
+                        <!-- User Authentication Status -->
+                        <div id="auth-status" class="d-inline-flex align-items-center p-2">
+                            <div id="user-info" class="d-none">
+                                <span id="user-name" class="mr-2"></span>
+                                <button id="logout-btn" class="btn btn-sm btn-outline-primary">Salir</button>
+                            </div>
+                            <div id="login-buttons">
+                                <button id="login-btn" class="btn btn-sm btn-outline-primary mr-2">Iniciar Sesión</button>
+                                <button id="register-btn" class="btn btn-sm btn-primary">Registrarse</button>
+                            </div>
+                        </div>
+                        <div class="d-inline-flex align-items-center p-2">
+                            <a class="btn btn-sm btn-outline-primary btn-sm-square mr-2" href="">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a class="btn btn-sm btn-outline-primary btn-sm-square mr-2" href="">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a class="btn btn-sm btn-outline-primary btn-sm-square mr-2" href="">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a class="btn btn-sm btn-outline-primary btn-sm-square mr-2" href="">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a class="btn btn-sm btn-outline-primary btn-sm-square mr-2" href="">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <nav class="navbar navbar-expand-lg bg-white navbar-light p-0">
+                    <a href="index.html" class="navbar-brand d-block d-lg-none">
+                        <h1 class="m-0 display-4 text-primary text-uppercase">Justice 2</h1>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav mr-auto py-0">
+                            <a href="index.html" class="nav-item nav-link active">Inicio</a>
+                            <a href="about.html" class="nav-item nav-link">Sobre Nosotros</a>
+                            <a href="service.html" class="nav-item nav-link">Servicios</a>
+                            <a href="team.html" class="nav-item nav-link">Abogados</a>
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Plataforma</a>
+                                <div class="dropdown-menu rounded-0 m-0">
+                                    <a href="ai-assistant.html" class="dropdown-item">Asistente IA</a>
+                                    <a href="documents.html" class="dropdown-item">Gestión de Documentos</a>
+                                    <a href="cases.html" class="dropdown-item">Gestión de Casos</a>
+                                    <a href="analytics.html" class="dropdown-item">Analytics</a>
+                                </div>
+                            </div>
+                            <a href="contact.html" class="nav-item nav-link">Contacto</a>
+                        </div>
+                        <a href="ai-assistant.html" class="btn btn-primary mr-3 d-none d-lg-block">Asistente IA</a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
+
+    <!-- Carousel Start -->
+    <div class="container-fluid p-0 mb-5 pb-5">
+        <div id="header-carousel" class="carousel slide carousel-fade" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item position-relative active" style="height: 100vh; min-height: 400px;">
+                    <img class="position-absolute w-100 h-100" src="images/carousel-1.jpg" style="object-fit: cover;">
+                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                        <div class="p-3" style="max-width: 900px;">
+                            <h4 class="text-white text-uppercase mb-4" style="letter-spacing: 3px;">Plataforma Legal con IA</h4>
+                            <h3 class="display-2 text-capitalize text-white mb-4">La justicia del futuro, hoy</h3>
+                            <a class="btn btn-primary py-3 px-5 mt-2" href="ai-assistant.html">Probar Asistente IA</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item position-relative" style="height: 100vh; min-height: 400px;">
+                    <img class="position-absolute w-100 h-100" src="images/carousel-2.jpg" style="object-fit: cover;">
+                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                        <div class="p-3" style="max-width: 900px;">
+                            <h4 class="text-white text-uppercase mb-4" style="letter-spacing: 3px;">Gestión Inteligente</h4>
+                            <h3 class="display-2 text-capitalize text-white mb-4">Optimice su práctica legal con IA</h3>
+                            <a class="btn btn-primary py-3 px-5 mt-2" href="cases.html">Gestionar Casos</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">
+                <div class="btn btn-lg btn-secondary btn-lg-square">
+                    <span class="carousel-control-prev-icon"></span>
+                </div>
+            </a>
+            <a class="carousel-control-next" href="#header-carousel" data-slide="next">
+                <div class="btn btn-lg btn-secondary btn-lg-square">
+                    <span class="carousel-control-next-icon"></span>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!-- Carousel End -->
+
+    <!-- About Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-5">
+                    <img class="img-fluid rounded" src="images/about.jpg" alt="">
+                </div>
+                <div class="col-lg-7 mt-4 mt-lg-0">
+                    <h2 class="position-relative text-center bg-white text-primary rounded p-3 mt-4 mb-4 d-none d-lg-block" style="width: 350px; margin-left: -205px;">Tecnología Legal Avanzada</h2>
+                    <h6 class="text-uppercase">Sobre Justice 2</h6>
+                    <h1 class="mb-4">Revolutionamos la práctica legal con inteligencia artificial</h1>
+                    <p>Justice 2 integra tecnología de vanguardia con experiencia legal para ofrecer soluciones innovadoras. Nuestra plataforma utiliza IA para analizar documentos, gestionar casos y proporcionar asistencia legal inteligente, optimizando el tiempo y mejorando los resultados para nuestros clientes.</p>
+                    <div class="row pt-2">
+                        <div class="col-6 col-md-4">
+                            <div class="text-center">
+                                <div class="d-inline-flex align-items-center justify-content-center bg-primary text-white rounded-circle mb-2" style="width: 60px; height: 60px;">
+                                    <i class="fa fa-brain fa-2x"></i>
+                                </div>
+                                <h5 class="font-weight-bold">IA Avanzada</h5>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="text-center">
+                                <div class="d-inline-flex align-items-center justify-content-center bg-primary text-white rounded-circle mb-2" style="width: 60px; height: 60px;">
+                                    <i class="fa fa-shield-alt fa-2x"></i>
+                                </div>
+                                <h5 class="font-weight-bold">Seguridad Total</h5>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="text-center">
+                                <div class="d-inline-flex align-items-center justify-content-center bg-primary text-white rounded-circle mb-2" style="width: 60px; height: 60px;">
+                                    <i class="fa fa-clock fa-2x"></i>
+                                </div>
+                                <h5 class="font-weight-bold">24/7 Disponible</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="ai-assistant.html" class="btn btn-primary mt-4">Probar Demo</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+    <!-- Services Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-3">
+                    <h6 class="text-uppercase">Nuestra Plataforma</h6>
+                    <h1 class="mb-4">Servicios Inteligentes</h1>
+                    <p>Justice 2 ofrece una suite completa de herramientas legales potenciadas por inteligencia artificial para transformar su práctica.</p>
+                    <a href="ai-assistant.html" class="btn btn-primary mt-2">Todos los Servicios</a>
+                </div>
+                <div class="col-lg-9 pt-5 pt-lg-0">
+                    <div class="bg-primary rounded" style="height: 200px;"></div>
+                    <div class="owl-carousel service-carousel position-relative" style="margin-top: -100px; padding: 0 30px;">
+                        <div class="d-flex flex-column align-items-center text-center bg-white rounded pt-4">
+                            <div class="icon-box bg-secondary text-primary mt-2 mb-4">
+                                <i class="fa fa-2x fa-robot"></i>
+                            </div>
+                            <h5 class="mb-4 px-4">Asistente IA</h5>
+                            <p class="m-0">Asistente legal inteligente disponible 24/7 para responder preguntas y analizar casos</p>
+                        </div>
+                        <div class="d-flex flex-column align-items-center text-center bg-white rounded pt-4">
+                            <div class="icon-box bg-secondary text-primary mt-2 mb-4">
+                                <i class="fa fa-2x fa-file-alt"></i>
+                            </div>
+                            <h5 class="mb-4 px-4">Documentos IA</h5>
+                            <p class="m-0">Gestión y análisis automatizado de documentos legales con extracción inteligente</p>
+                        </div>
+                        <div class="d-flex flex-column align-items-center text-center bg-white rounded pt-4">
+                            <div class="icon-box bg-secondary text-primary mt-2 mb-4">
+                                <i class="fa fa-2x fa-briefcase"></i>
+                            </div>
+                            <h5 class="mb-4 px-4">Gestión de Casos</h5>
+                            <p class="m-0">Sistema integral para seguimiento y gestión de casos con análisis predictivo</p>
+                        </div>
+                        <div class="d-flex flex-column align-items-center text-center bg-white rounded pt-4">
+                            <div class="icon-box bg-secondary text-primary mt-2 mb-4">
+                                <i class="fa fa-2x fa-chart-line"></i>
+                            </div>
+                            <h5 class="mb-4 px-4">Analytics Legal</h5>
+                            <p class="m-0">Análisis avanzado de datos y métricas para optimizar su práctica legal</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Services End -->
+
+    <!-- Dynamic Content Section -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="text-center pb-5">
+                <h6 class="text-uppercase">Características Dinámicas</h6>
+                <h1 class="mb-4">Experiencia Interactiva</h1>
+            </div>
+            <div class="row" id="dynamic-content">
+                <!-- Content will be loaded dynamically -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Casos Recientes</h5>
+                            <div id="recent-cases">
+                                <p class="text-muted">Cargando casos recientes...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Documentos Activos</h5>
+                            <div id="active-documents">
+                                <p class="text-muted">Cargando documentos activos...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Estadísticas</h5>
+                            <div id="statistics">
+                                <p class="text-muted">Cargando estadísticas...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Dynamic Content Section End -->
+
+    <!-- Appointment Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="bg-appointment rounded">
+                <div class="row h-100 align-items-center justify-content-center">
+                    <div class="col-lg-6 py-5">
+                        <div class="rounded p-5 my-5" style="background: rgba(55, 55, 63, .7);">
+                            <h1 class="text-center text-white mb-4">Consultoría Gratuita</h1>
+                            <form id="appointment-form">
+                                <div class="form-group">
+                                    <input type="text" class="form-control border-0 p-4" placeholder="Su Nombre" required="required" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control border-0 p-4" placeholder="Su Email" required="required" />
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <div class="date" id="date" data-target-input="nearest">
+                                                <input type="text" class="form-control border-0 p-4 datetimepicker-input" placeholder="Seleccionar Fecha" data-target="#date" data-toggle="datetimepicker"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <div class="time" id="time" data-target-input="nearest">
+                                                <input type="text" class="form-control border-0 p-4 datetimepicker-input" placeholder="Seleccionar Hora" data-target="#time" data-toggle="datetimepicker"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <select class="custom-select border-0 px-4" style="height: 47px;">
+                                        <option selected>Seleccionar Servicio</option>
+                                        <option value="1">Asistente IA</option>
+                                        <option value="2">Gestión de Documentos</option>
+                                        <option value="3">Gestión de Casos</option>
+                                        <option value="4">Analytics Legal</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <button class="btn btn-primary btn-block border-0 py-3" type="submit">Solicitar Consultoría</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Appointment End -->
+
+    <!-- Features Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-6" style="min-height: 500px;">
+                    <div class="position-relative h-100 rounded overflow-hidden">
+                        <img class="position-absolute w-100 h-100" src="images/feature.jpg" style="object-fit: cover;">
+                    </div>
+                </div>
+                <div class="col-lg-6 pt-5 pb-lg-5">
+                    <div class="feature-text bg-white rounded p-lg-5">
+                        <h6 class="text-uppercase">Ventajas</h6>
+                        <h1 class="mb-4">Por Qué Elegir Justice 2</h1>
+                        <div class="d-flex mb-4">
+                            <div class="btn-primary btn-lg-square px-3" style="border-radius: 50px;">
+                                <h5 class="text-secondary m-0">01</h5>
+                            </div>
+                            <div class="ml-4">
+                                <h5>Inteligencia Artificial Avanzada</h5>
+                                <p class="m-0">Nuestra IA está entrenada con miles de casos legales para proporcionar análisis precisos y recomendaciones inteligentes</p>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-4">
+                            <div class="btn-primary btn-lg-square px-3" style="border-radius: 50px;">
+                                <h5 class="text-secondary m-0">02</h5>
+                            </div>
+                            <div class="ml-4">
+                                <h5>Integración Total</h5>
+                                <p class="m-0">Conectamos todos los aspectos de su práctica legal en una plataforma unificada y fácil de usar</p>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <div class="btn-primary btn-lg-square px-3" style="border-radius: 50px;">
+                                <h5 class="text-secondary m-0">03</h5>
+                            </div>
+                            <div class="ml-4">
+                                <h5>Resultados Comprobados</h5>
+                                <p class="m-0">Nuestros clientes reportan un 40% de mejora en eficiencia y mejores resultados en sus casos</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Features End -->
+
+    <!-- Action Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="bg-action rounded" style="height: 500px;">
+                <div class="row h-100 align-items-center justify-content-center">
+                    <div class="col-lg-7 text-center">
+                        <h1 class="text-white mb-4">Comience ahora. Llámenos para una Consulta Gratuita</h1>
+                        <a class="btn btn-primary py-3 px-5 mt-2" href="ai-assistant.html">Probar Asistente IA</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Action End -->
+
+    <!-- Team Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="text-center pb-2">
+                <h6 class="text-uppercase">Nuestros Expertos</h6>
+                <h1 class="mb-4">Equipo Legal</h1>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="bg-primary rounded" style="height: 200px;"></div>
+                    <div class="owl-carousel team-carousel position-relative" style="margin-top: -97px; padding: 0 30px;">
+                        <div class="team-item text-center bg-white rounded overflow-hidden pt-4">
+                            <h5 class="mb-2 px-4">Dr. José Moreno</h5>
+                            <p class="mb-3 px-4">Director Tecnológico</p>
+                            <div class="team-img position-relative">
+                                <img class="img-fluid" src="images/team-1.jpg" alt="">
+                                <div class="team-social">
+                                    <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
+                                    <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
+                                    <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="team-item text-center bg-white rounded overflow-hidden pt-4">
+                            <h5 class="mb-2 px-4">María García</h5>
+                            <p class="mb-3 px-4">Experta en IA Legal</p>
+                            <div class="team-img position-relative">
+                                <img class="img-fluid" src="images/team-2.jpg" alt="">
+                                <div class="team-social">
+                                    <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
+                                    <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
+                                    <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="team-item text-center bg-white rounded overflow-hidden pt-4">
+                            <h5 class="mb-2 px-4">Carlos Rodríguez</h5>
+                            <p class="mb-3 px-4">Desarrollador Senior</p>
+                            <div class="team-img position-relative">
+                                <img class="img-fluid" src="images/team-3.jpg" alt="">
+                                <div class="team-social">
+                                    <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
+                                    <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
+                                    <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="team-item text-center bg-white rounded overflow-hidden pt-4">
+                            <h5 class="mb-2 px-4">Ana Martínez</h5>
+                            <p class="mb-3 px-4">Especialista en Documentos</p>
+                            <div class="team-img position-relative">
+                                <img class="img-fluid" src="images/team-4.jpg" alt="">
+                                <div class="team-social">
+                                    <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
+                                    <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
+                                    <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="team-item text-center bg-white rounded overflow-hidden pt-4">
+                            <h5 class="mb-2 px-4">Luis Fernández</h5>
+                            <p class="mb-3 px-4">Analista de Datos</p>
+                            <div class="team-img position-relative">
+                                <img class="img-fluid" src="images/team-5.jpg" alt="">
+                                <div class="team-social">
+                                    <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-twitter"></i></a>
+                                    <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-facebook-f"></i></a>
+                                    <a class="btn btn-outline-light btn-square mx-1" href="#"><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Team End -->
+
+    <!-- Testimonial Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="text-center pb-5">
+                <h6 class="text-uppercase">Testimonios</h6>
+                <h1 class="mb-5">Lo Que Dicen Nuestros Clientes</h1>
+            </div>
+            <div class="owl-carousel testimonial-carousel">
+                <div class="testimonial-item">
+                    <div class="testimonial-text position-relative bg-secondary text-light rounded p-5 mb-4">
+                        Justice 2 ha transformado completamente mi práctica legal. El asistente IA me ahorra horas de investigación y me proporciona insights valiosos para mis casos.
+                    </div>
+                    <div class="d-flex align-items-center pt-3">
+                        <img class="img-fluid rounded-circle" src="images/testimonial-1.jpg" style="width: 80px; height: 80px;" alt="">
+                        <div class="pl-4">
+                            <h5>Dr. Antonio Pérez</h5>
+                            <p class="m-0">Abogado Corporativo</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-item">
+                    <div class="testimonial-text position-relative bg-secondary text-light rounded p-5 mb-4">
+                        La gestión de documentos es increíble. El sistema analiza automáticamente contratos y me alerta sobre cláusulas problemáticas. Es como tener un asistente junior 24/7.
+                    </div>
+                    <div class="d-flex align-items-center pt-3">
+                        <img class="img-fluid rounded-circle" src="images/testimonial-2.jpg" style="width: 80px; height: 80px;" alt="">
+                        <div class="pl-4">
+                            <h5>Laura Sánchez</h5>
+                            <p class="m-0">Abogada de Familia</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-item">
+                    <div class="testimonial-text position-relative bg-secondary text-light rounded p-5 mb-4">
+                        Los analytics me han ayudado a entender mejor mi negocio y tomar decisiones informadas. Mi productividad ha aumentado un 40% desde que uso Justice 2.
+                    </div>
+                    <div class="d-flex align-items-center pt-3">
+                        <img class="img-fluid rounded-circle" src="images/testimonial-3.jpg" style="width: 80px; height: 80px;" alt="">
+                        <div class="pl-4">
+                            <h5>Miguel Ángel Torres</h5>
+                            <p class="m-0">Socio Senior</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-item">
+                    <div class="testimonial-text position-relative bg-secondary text-light rounded p-5 mb-4">
+                        La plataforma es intuitiva y potente. La integración con mi sistema existente fue perfecta. El soporte técnico es excepcional.
+                    </div>
+                    <div class="d-flex align-items-center pt-3">
+                        <img class="img-fluid rounded-circle" src="images/testimonial-4.jpg" style="width: 80px; height: 80px;" alt="">
+                        <div class="pl-4">
+                            <h5>Carmen López</h5>
+                            <p class="m-0">Directora Legal</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Testimonial End -->
+
+    <!-- Footer Start -->
+    <div class="container-fluid bg-secondary text-white pt-5 px-sm-3 px-md-5" style="margin-top: 90px;">
+        <div class="row mt-5">
+            <div class="col-lg-4">
+                <div class="d-flex justify-content-lg-center p-4" style="background: rgba(256, 256, 256, .05);">
+                    <i class="fa fa-2x fa-map-marker-alt text-primary"></i>
+                    <div class="ml-3">
+                        <h5 class="text-white">Nuestra Oficina</h5>
+                        <p class="m-0">Calle Legal 123, Madrid, España</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="d-flex justify-content-lg-center p-4" style="background: rgba(256, 256, 256, .05);">
+                    <i class="fa fa-2x fa-envelope-open text-primary"></i>
+                    <div class="ml-3">
+                        <h5 class="text-white">Email</h5>
+                        <p class="m-0">info@justice2.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="d-flex justify-content-lg-center p-4" style="background: rgba(256, 256, 256, .05);">
+                    <i class="fa fa-2x fa-phone-alt text-primary"></i>
+                    <div class="ml-3">
+                        <h5 class="text-white">Llámenos</h5>
+                        <p class="m-0">+34 900 123 456</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-5">
+            <div class="col-lg-3 col-md-6 mb-5">
+                <a href="index.html" class="navbar-brand">
+                    <h1 class="m-0 mt-n2 display-4 text-primary text-uppercase">Justice 2</h1>
+                </a>
+                <p>Plataforma legal de última generación con inteligencia artificial para transformar su práctica profesional.</p>
+                <div class="d-flex justify-content-start mt-4">
+                    <a class="btn btn-lg btn-outline-light btn-lg-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-lg btn-outline-light btn-lg-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-lg btn-outline-light btn-lg-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-lg btn-outline-light btn-lg-square" href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h4 class="font-weight-semi-bold text-primary mb-4">Enlaces Populares</h4>
+                <div class="d-flex flex-column justify-content-start">
+                    <a class="text-white mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Inicio</a>
+                    <a class="text-white mb-2" href="about.html"><i class="fa fa-angle-right mr-2"></i>Sobre Nosotros</a>
+                    <a class="text-white mb-2" href="service.html"><i class="fa fa-angle-right mr-2"></i>Servicios</a>
+                    <a class="text-white mb-2" href="team.html"><i class="fa fa-angle-right mr-2"></i>Abogados</a>
+                    <a class="text-white" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contacto</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h4 class="font-weight-semi-bold text-primary mb-4">Plataforma</h4>
+                <div class="d-flex flex-column justify-content-start">
+                    <a class="text-white mb-2" href="ai-assistant.html"><i class="fa fa-angle-right mr-2"></i>Asistente IA</a>
+                    <a class="text-white mb-2" href="documents.html"><i class="fa fa-angle-right mr-2"></i>Gestión de Documentos</a>
+                    <a class="text-white mb-2" href="cases.html"><i class="fa fa-angle-right mr-2"></i>Gestión de Casos</a>
+                    <a class="text-white mb-2" href="analytics.html"><i class="fa fa-angle-right mr-2"></i>Analytics</a>
+                    <a class="text-white" href="#"><i class="fa fa-angle-right mr-2"></i>API</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h4 class="font-weight-semi-bold text-primary mb-4">Newsletter</h4>
+                <p>Reciba las últimas noticias sobre tecnología legal y actualizaciones de Justice 2.</p>
+                <div class="w-100">
+                    <div class="input-group">
+                        <input type="text" class="form-control border-0" style="padding: 25px;" placeholder="Su Email">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary px-4">Suscribirse</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row p-4 mt-5 mx-0" style="background: rgba(256, 256, 256, .05);">
+            <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
+                <p class="m-0 text-white">&copy; <a class="font-weight-bold" href="#">Justice 2</a>. Todos los Derechos Reservados.</p>
+            </div>
+            <div class="col-md-6 text-center text-md-right">
+                <p class="m-0 text-white">Desarrollado por <a class="font-weight-bold" href="#">Justice 2 Team</a></p>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary px-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <!-- Authentication Modal -->
+    <div class="modal fade" id="authModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="authModalTitle">Iniciar Sesión</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="auth-form">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Contraseña</label>
+                            <input type="password" class="form-control" id="password" required>
+                        </div>
+                        <div id="register-fields" class="d-none">
+                            <div class="form-group">
+                                <label for="name">Nombre Completo</label>
+                                <input type="text" class="form-control" id="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm-password">Confirmar Contraseña</label>
+                                <input type="password" class="form-control" id="confirm-password">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block" id="auth-submit">Iniciar Sesión</button>
+                        <div class="text-center mt-3">
+                            <a href="#" id="toggle-auth">¿No tienes cuenta? Regístrate</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+    
+    <!-- Justice 2 Core Components -->
+    <script src="components/utils.js"></script>
+    <script src="components/notification-system.js"></script>
+    <script src="components/loading-system.js"></script>
+    <script src="components/modal-system.js"></script>
+    <script src="components/validation-system.js"></script>
+    
+    <!-- Justice 2 Core JavaScript -->
+    <script src="js/justice2-config.js"></script>
+    <script src="js/justice2-core.js"></script>
+    <script src="js/justice2-auth.js"></script>
+    <script src="js/justice2-api.js"></script>
+    <script src="js/justice2-mock-data.js"></script>
+    <script src="js/justice2-dynamic.js"></script>
+</body>
+
+</html>
