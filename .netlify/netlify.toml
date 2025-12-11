@@ -1,36 +1,133 @@
 functionsDirectory = "C:\\Users\\pabli\\OneDrive\\Desktop\\TRABAJO PROGRAMACION\\jose moreno\\justice 2\\netlify\\functions"
 functionsDirectoryOrigin = "config-v1"
+headersOrigin = "config"
 redirectsOrigin = "config"
-plugins = []
 headers = []
 
 [build]
 publish = "C:\\Users\\pabli\\OneDrive\\Desktop\\TRABAJO PROGRAMACION\\jose moreno\\justice 2"
 publishOrigin = "config"
+commandOrigin = "config"
+command = "echo 'Build completed - Static site ready for deployment'"
+command_origin = "config"
 functions = "C:\\Users\\pabli\\OneDrive\\Desktop\\TRABAJO PROGRAMACION\\jose moreno\\justice 2\\netlify\\functions"
 
 [build.environment]
+NODE_VERSION = "18"
+NPM_VERSION = "9"
+NODE_OPTIONS = "--max-old-space-size=4096"
+NODE_ENV = "production"
+API_URL = "https://justice2.netlify.app"
+DATABASE_URL = "@database_url"
+JWT_SECRET = "@jwt_secret"
+OPENAI_API_KEY = "@openai_api_key"
 
 [build.processing]
+skip_processing = false
 
 [build.processing.css]
+bundle = true
+minify = true
 
 [build.processing.html]
+pretty_urls = true
 
 [build.processing.images]
+compress = true
+compress_quality = 80.0
+strip_metadata = true
 
 [build.processing.js]
+bundle = true
+minify = true
+
+[build.processing.skip]
+css = false
+js = false
+html = false
+images = false
 
 [build.services]
+
+[[edge_functions]]
+function = "api"
+path = "/api/*"
+
+[[edge_functions]]
+function = "auth"
+path = "/api/auth/*"
 
 [functions]
 
 [functions."*"]
 
+[[plugins]]
+origin = "config"
+package = "@netlify/plugin-lighthouse"
+
+[plugins.inputs]
+output_path = "lighthouse.html"
+
+[[plugins]]
+origin = "config"
+package = "@netlify/plugin-sitemap"
+
+[plugins.inputs]
+buildDir = "."
+exclude = ["/netlify/**"]
+
 [[redirects]]
 from = "/api/*"
 to = "/.netlify/functions/api/:splat"
 status = 200.0
+force = true
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]
+
+[[redirects]]
+from = "/home"
+to = "/"
+status = 301.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]
+
+[[redirects]]
+from = "/index.html"
+to = "/"
+status = 301.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]
+
+[[redirects]]
+from = "/admin"
+to = "/index.html#admin"
+status = 302.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]
+
+[[redirects]]
+from = "/login"
+to = "/index.html#login"
+status = 302.0
 force = false
 
 [redirects.query]
@@ -43,6 +140,30 @@ force = false
 from = "/*"
 to = "/index.html"
 status = 200.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]
+
+[[redirects]]
+from = "/404"
+to = "/index.html#404"
+status = 404.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]
+
+[[redirects]]
+from = "/500"
+to = "/index.html#500"
+status = 500.0
 force = false
 
 [redirects.query]

@@ -3,8 +3,7 @@ module.exports = {
     browser: true,
     node: true,
     es2022: true,
-    jest: true,
-    netlify: true
+    jest: true
   },
   extends: [
     'eslint:recommended',
@@ -86,8 +85,7 @@ module.exports = {
     {
       files: ['netlify/functions/**/*.js'],
       env: {
-        node: true,
-        netlify: true
+        node: true
       },
       rules: {
         'no-console': 'off'

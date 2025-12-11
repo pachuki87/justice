@@ -166,21 +166,89 @@ Utilidades reutilizables:
 ## Instalación y Configuración
 
 ### 1. Requisitos Previos
-- Servidor web (Apache, Nginx, etc.)
-- PHP 7.4+ (para el backend existente)
+- Node.js 18+ y npm 8+
+- Netlify CLI (para despliegue)
 - PostgreSQL (base de datos)
 - Acceso a srv1024767.hstgr.cloud
 
-### 2. Configuración
-1. Copiar los archivos al servidor web
-2. Configurar la conexión a la base de datos en `justice2-config.js`
-3. Ajustar las URLs de la API si es necesario
-4. Configurar SSL/TLS
+### 2. Instalación Rápida
 
-### 3. Personalización
+```bash
+# Clonar el repositorio
+git clone <repository-url>
+cd justice-2
+
+# Instalar dependencias
+npm install
+
+# Configurar variables de entorno
+cp .env.example .env
+# Editar .env con tus credenciales
+
+# Iniciar desarrollo
+npm run dev
+
+# Ejecutar pruebas
+npm test
+
+# Validar configuración
+npm run validate
+```
+
+### 3. Scripts Disponibles
+
+#### Desarrollo
+```bash
+npm run dev          # Iniciar servidor de desarrollo
+npm start            # Alias para npm run dev
+npm run build        # Construir para producción
+```
+
+#### Calidad y Testing
+```bash
+npm test             # Ejecutar pruebas
+npm run test:watch   # Modo watch para pruebas
+npm run lint         # Verificar calidad de código
+npm run lint:fix     # Corregir problemas de linting
+npm run format       # Formatear código
+```
+
+#### Seguridad y Mantenimiento
+```bash
+npm run security      # Auditoría de seguridad
+npm run update        # Actualizar dependencias
+npm run clean         # Limpiar e reinstalar
+npm run validate      # Validación completa
+```
+
+#### Despliegue
+```bash
+npm run deploy        # Despliegue a producción
+npm run deploy:staging # Despliegue a staging
+```
+
+### 4. Configuración de Entorno
+
+Crear archivo `.env` basado en `.env.example`:
+
+```bash
+# Base de datos
+DATABASE_URL=postgresql://user:password@host:5432/database
+
+# API y Seguridad
+JWT_SECRET=your-secret-key
+OPENAI_API_KEY=your-openai-key
+
+# Entorno
+NODE_ENV=development
+API_URL=http://localhost:8888
+```
+
+### 5. Personalización
 - Modificar colores en los archivos CSS si se desea
 - Ajustar configuración en `justice2-config.js`
 - Personalizar mensajes y textos
+- Configurar Netlify variables en el dashboard
 
 ## Uso
 

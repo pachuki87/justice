@@ -23,10 +23,10 @@
     buildDir = "."
     exclude = ["/netlify/**"]
 
-[[plugins]]
-  package = "@netlify/plugin-minify-html"
-  [plugins.inputs]
-    minify_on = "build"
+# [[plugins]]
+#   package = "@netlify/plugin-minify-html"
+#   [plugins.inputs]
+#     minify_on = "build"
 
 # Headers de seguridad fundamentales para toda la aplicación
 [[headers]]
@@ -169,7 +169,6 @@
   from = "/*"
   to = "/index.html"
   status = 200
-  conditions = {Role = ["admin", "user"]}
 
 # Manejo de errores personalizado
 [[redirects]]
@@ -187,6 +186,9 @@
   [context.production.environment]
     NODE_ENV = "production"
     API_URL = "https://justice2.netlify.app"
+    DATABASE_URL = "@database_url"
+    JWT_SECRET = "@jwt_secret"
+    OPENAI_API_KEY = "@openai_api_key"
     
   [context.production.headers]
     for = "/*"
@@ -200,6 +202,9 @@
   [context.development.environment]
     NODE_ENV = "development"
     API_URL = "http://localhost:8888"
+    DATABASE_URL = "postgresql://localhost:5432/justice2_dev"
+    JWT_SECRET = "dev-secret-key"
+    OPENAI_API_KEY = "dev-openai-key"
     
   [context.development.headers]
     for = "/*"
@@ -223,32 +228,17 @@
   function = "auth"
   path = "/api/auth/*"
 
-# Configuración de variables de entorno por contexto
-[context.production.environment]
-  DATABASE_URL = "@database_url"
-  JWT_SECRET = "@jwt_secret"
-  OPENAI_API_KEY = "@openai_api_key"
+# Configuración de variables de entorno por contexto - MOVIDAS ARRIBA
 
-[context.development.environment]
-  DATABASE_URL = "postgresql://localhost:5432/justice2_dev"
-  JWT_SECRET = "dev-secret-key"
-  OPENAI_API_KEY = "dev-openai-key"
-
-# Configuración de procesamiento de formularios
+# Configuración de procesamiento
 [build.processing]
   skip_processing = false
-  css = { bundle = true, minify = true }
-  js = { bundle = true, minify = true }
-  html = { pretty_urls = true }
-  images = { compress = true }
 
-# Configuración de optimización de imágenes
 [build.processing.images]
   compress = true
   compress_quality = 80
   strip_metadata = true
 
-# Configuración de bundle optimizado
 [build.processing.css]
   bundle = true
   minify = true
@@ -257,11 +247,11 @@
   bundle = true
   minify = true
 
-# Configuración de seguridad adicional
-[build]
-  [build.processing]
-    [build.processing.skip]
-      css = false
-      js = false
-      html = false
-      images = false
+[build.processing.html]
+  pretty_urls = true
+
+[build.processing.skip]
+  css = false
+  js = false
+  html = false
+  images = false

@@ -67,3 +67,5 @@ test-results/
 # Configuración específica del entorno
 config/local.js
 config/production.js
+# Local Netlify folder
+.netlify
