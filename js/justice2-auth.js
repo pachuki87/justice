@@ -87,36 +87,47 @@ const Justice2Auth = {
     
     // Inicialización
     init: function() {
-        this.log('Inicializando sistema de autenticación con NetworkErrorHandler y sincronización robusta');
-        
-        // Inicializar sistema de sincronización primero
-        this.initializeSynchronization();
-        
-        // Esperar a que NetworkErrorHandler esté disponible antes de continuar
-        const waitForNetworkErrorHandler = () => {
+        this.log('Inicializando sistema de autenticación Justice 2');
+
+        try {
+            // Inicializar sistema de sincronización (opcional)
+            this.initializeSynchronization();
+
+            // Inicializar caché básico
+            this.initializeAuthCache();
+
+            // Verificar sesión existente
+            this.checkExistingSession();
+
+            // Inicializar eventos de autenticación
+            this.initAuthEvents();
+
+            // Inicializar eventos de UI (crucial para botones)
+            this.initUIEvents();
+
+            // Configurar refresh de token
+            this.setupTokenRefresh();
+
+            // Configurar NetworkErrorHandler si está disponible
             if (typeof window !== 'undefined' && window.NetworkErrorHandler) {
-                // NetworkErrorHandler está disponible, continuar con inicialización
-                this.initializeAuthCache();
-                this.checkExistingSession();
-                this.initAuthEvents();
-                this.initUIEvents();
-                this.setupTokenRefresh();
-                
-                // Configurar eventos de NetworkErrorHandler para autenticación
                 this.setupNetworkErrorHandlerEvents();
-                
-                // Configurar eventos de sincronización
-                this.setupSyncEvents();
-                
-                this.log('Sistema de autenticación inicializado con NetworkErrorHandler y sincronización');
+                this.log('NetworkErrorHandler configurado para autenticación');
             } else {
-                // NetworkErrorHandler no está disponible aún, esperar y reintentar
-                this.log('Esperando a NetworkErrorHandler para autenticación...');
-                setTimeout(waitForNetworkErrorHandler, 100);
+                this.log('NetworkErrorHandler no disponible - usando manejo básico de errores');
             }
-        };
-        
-        waitForNetworkErrorHandler();
+
+            // Configurar eventos de sincronización si está disponible
+            if (this.state.syncManager) {
+                this.setupSyncEvents();
+            }
+
+            this.log('Sistema de autenticación inicializado correctamente');
+
+        } catch (error) {
+            this.log('Error en inicialización de autenticación:', error);
+            // No lanzar el error para que la aplicación pueda continuar
+            console.warn('La autenticación se inicializó con funcionalidad limitada');
+        }
     },
     
     // Inicializar sistema de sincronización
@@ -1789,22 +1800,78 @@ const Justice2Auth = {
         const submitBtn = document.getElementById('auth-submit');
         const toggleAuth = document.getElementById('toggle-auth');
         const registerFields = document.getElementById('register-fields');
-        
-        if (modal && title && submitBtn && toggleAuth) {
+
+        if (!modal) {
+            // Si no hay modal, mostrar alerta simple
+            this.showSimpleAuthDialog(mode);
+            return;
+        }
+
+        if (title && submitBtn && toggleAuth) {
             if (mode === 'login') {
                 XSSProtection.setElementTextSafe(title, 'Iniciar Sesión');
                 XSSProtection.setElementTextSafe(submitBtn, 'Iniciar Sesión');
                 XSSProtection.setElementTextSafe(toggleAuth, '¿No tienes cuenta? Regístrate');
-                registerFields.classList.add('d-none');
+                if (registerFields) registerFields.classList.add('d-none');
             } else {
                 XSSProtection.setElementTextSafe(title, 'Registrarse');
                 XSSProtection.setElementTextSafe(submitBtn, 'Registrarse');
                 XSSProtection.setElementTextSafe(toggleAuth, '¿Ya tienes cuenta? Inicia Sesión');
-                registerFields.classList.remove('d-none');
+                if (registerFields) registerFields.classList.remove('d-none');
             }
-           
-            const bsModal = new bootstrap.Modal(modal);
-            bsModal.show();
+
+            // Usar Bootstrap si está disponible
+            if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+                const bsModal = new bootstrap.Modal(modal);
+                bsModal.show();
+            } else {
+                // Fallback: mostrar modal manualmente
+                modal.style.display = 'block';
+                modal.classList.add('show');
+                modal.style.backgroundColor = 'rgba(0,0,0,0.5)';
+
+                // Añadir botón de cerrar si no existe
+                if (!modal.querySelector('.modal-header .close')) {
+                    const header = modal.querySelector('.modal-header');
+                    if (header) {
+                        const closeBtn = document.createElement('button');
+                        closeBtn.type = 'button';
+                        closeBtn.className = 'close';
+                        closeBtn.innerHTML = '&times;';
+                        closeBtn.onclick = () => this.hideAuthModal();
+                        header.appendChild(closeBtn);
+                    }
+                }
+            }
+        }
+    },
+
+    // Ocultar modal de autenticación
+    hideAuthModal: function() {
+        const modal = document.getElementById('authModal');
+        if (modal) {
+            if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
+                const bsModal = bootstrap.Modal.getInstance(modal);
+                if (bsModal) {
+                    bsModal.hide();
+                }
+            } else {
+                // Fallback: ocultar manualmente
+                modal.style.display = 'none';
+                modal.classList.remove('show');
+            }
+        }
+    },
+
+    // Mostrar diálogo simple de autenticación (fallback)
+    showSimpleAuthDialog: function(mode = 'login') {
+        const isLogin = mode === 'login';
+        const message = isLogin
+            ? 'Por favor, ingresa tus credenciales para iniciar sesión.'
+            : 'Por favor, completa el formulario para registrarte.';
+
+        if (confirm(`${message}\n\nEsta función estará disponible próximamente.`)) {
+            console.log('Usuario intentó', mode);
         }
     },
     
@@ -2596,13 +2663,29 @@ const Justice2Auth = {
     }
 };
 
-// Inicializar sistema de autenticación
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
+// Inicializar sistema de autenticación de forma segura
+function initJustice2Auth() {
+    // Verificar dependencias básicas
+    if (!window.Justice2) {
+        console.error('Justice2Auth: Justice2 no está disponible aún');
+        return;
+    }
+
+    // Inicializar sin dependencias opcionales
+    try {
         Justice2Auth.init();
-    });
+        console.log('Justice2Auth: Sistema inicializado correctamente');
+    } catch (error) {
+        console.error('Justice2Auth: Error en inicialización', error);
+    }
+}
+
+// Inicializar cuando el DOM esté listo
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initJustice2Auth);
 } else {
-    Justice2Auth.init();
+    // Si ya cargó, inicializar inmediatamente
+    setTimeout(initJustice2Auth, 100);
 }
 
 // Exportar para uso global
