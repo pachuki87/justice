@@ -7,21 +7,8 @@
 // Importar sistema de protección XSS centralizado
 // El sistema se carga automáticamente desde components/xss-protection.js
 
-// Importar sistema de sincronización robusto
-import SyncManager from './components/sync-manager.js';
-import ConcurrencyController from './components/concurrency-controller.js';
-import SyncDiagnostics from './components/sync-diagnostics.js';
-
-// Importar sistema de renderizado optimizado
-import RenderOptimizer from './components/render-optimizer.js';
-import VirtualDOM from './components/virtual-dom.js';
-import ComponentMemoizer from './components/component-memoizer.js';
-import BatchRenderer from './components/batch-renderer.js';
-import LazyRenderer from './components/lazy-renderer.js';
-import SmartComponent from './components/smart-component.js';
-import OptimizedRenderer from './components/optimized-renderer.js';
-import RenderScheduler from './components/render-scheduler.js';
-import PerformanceProfiler from './components/performance-profiler.js';
+// Nota: Los sistemas de sincronización y renderizado optimizado se cargarán dinámicamente
+// si están disponibles, pero no son requeridos para el funcionamiento básico
 
 // Configuración global (Core implementation)
 const Justice2Core = {

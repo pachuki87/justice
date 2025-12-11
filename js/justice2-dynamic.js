@@ -6,10 +6,8 @@
 // Importar sistema de protección XSS centralizado
 // El sistema se carga automáticamente desde components/xss-protection.js
 
-// Importar sistema de renderizado optimizado
-import OptimizedRenderer from './components/optimized-renderer.js';
-import SmartComponent from './components/smart-component.js';
-import LazyRenderer from './components/lazy-renderer.js';
+// Nota: Los sistemas de renderizado optimizado se cargarán dinámicamente
+// si están disponibles en window.Justice2.renderComponents
 
 const Justice2Dynamic = {
     // Configuración
@@ -81,30 +79,32 @@ const Justice2Dynamic = {
             }
             
             // Inicializar sistemas locales si el global no está disponible
-            if (typeof OptimizedRenderer !== 'undefined') {
-                this.state.optimizedRenderer = new OptimizedRenderer({
-                    enableVirtualDOM: true,
-                    enableMemoization: true,
-                    enableBatching: true,
-                    enableLazyLoading: true,
-                    enableSmartComponents: true
-                });
-                
-                this.log('OptimizedRenderer local inicializado');
+            // Los sistemas optimizados son opcionales para el funcionamiento básico
+            if (window.Justice2 && window.Justice2.renderComponents) {
+                const components = window.Justice2.renderComponents;
+                if (components.OptimizedRenderer) {
+                    this.state.optimizedRenderer = new components.OptimizedRenderer({
+                        enableVirtualDOM: true,
+                        enableMemoization: true,
+                        enableBatching: true,
+                        enableLazyLoading: true,
+                        enableSmartComponents: true
+                    });
+                    this.log('OptimizedRenderer local inicializado');
+                }
+
+                if (components.SmartComponent) {
+                    this.state.smartComponent = new components.SmartComponent({
+                        enableAutoOptimization: true,
+                        enableErrorBoundaries: true,
+                        enableLifecycleHooks: true
+                    });
+                    this.log('SmartComponent local inicializado');
+                }
             }
-            
-            if (typeof SmartComponent !== 'undefined') {
-                this.state.smartComponent = new SmartComponent({
-                    enableAutoOptimization: true,
-                    enableErrorBoundaries: true,
-                    enableLifecycleHooks: true
-                });
-                
-                this.log('SmartComponent local inicializado');
-            }
-            
-            if (typeof LazyRenderer !== 'undefined') {
-                this.state.lazyRenderer = new LazyRenderer({
+  
+            if (components && components.LazyRenderer) {
+                this.state.lazyRenderer = new components.LazyRenderer({
                     rootMargin: '50px',
                     threshold: 0.1,
                     enablePlaceholders: true,

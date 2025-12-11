@@ -3,10 +3,8 @@
  * Sistema de autenticación no intrusivo para Justice 2 con NetworkErrorHandler y sincronización robusta integrados
  */
 
-// Importar sistema de sincronización robusto
-import SyncManager from './components/sync-manager.js';
-import ConcurrencyController from './components/concurrency-controller.js';
-import SyncDiagnostics from './components/sync-diagnostics.js';
+// Nota: Los sistemas de sincronización robusta se cargarán dinámicamente
+// si están disponibles en window.Justice2.syncComponents
 
 // Importar sistema de protección XSS centralizado
 // El sistema se carga automáticamente desde components/xss-protection.js

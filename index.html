@@ -692,7 +692,7 @@
     <script src="components/loading-system.js"></script>
     <script src="components/modal-system.js"></script>
     <script src="components/validation-system.js"></script>
-    
+
     <!-- Justice 2 Core JavaScript -->
     <script src="js/justice2-config.js"></script>
     <script src="js/justice2-core.js"></script>
@@ -700,6 +700,78 @@
     <script src="js/justice2-api.js"></script>
     <script src="js/justice2-mock-data.js"></script>
     <script src="js/justice2-dynamic.js"></script>
+
+    <!-- Initialize Justice 2 Application -->
+    <script>
+        // Inicialización segura de la aplicación
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                console.log('Iniciando Justice 2...');
+
+                // Verificar que los componentes principales estén cargados
+                if (typeof window.Justice2 === 'undefined') {
+                    console.error('Error: Justice2 no está definido');
+                    return;
+                }
+
+                // Inicializar configuración
+                if (window.Justice2.config && typeof window.Justice2.config.init === 'function') {
+                    window.Justice2.config.init();
+                }
+
+                // Inicializar componentes básicos
+                if (window.NotificationSystem) {
+                    window.NotificationSystem.init();
+                }
+
+                if (window.LoadingSystem) {
+                    window.LoadingSystem.init();
+                }
+
+                // Inicializar sistema de autenticación
+                if (window.Justice2Auth && typeof window.Justice2Auth.init === 'function') {
+                    window.Justice2Auth.init();
+                }
+
+                // Inicializar API
+                if (window.Justice2API && typeof window.Justice2API.init === 'function') {
+                    window.Justice2API.init();
+                }
+
+                // Inicializar contenido dinámico
+                if (window.Justice2Dynamic && typeof window.Justice2Dynamic.init === 'function') {
+                    window.Justice2Dynamic.init();
+                }
+
+                console.log('Justice 2 iniciado correctamente');
+
+                // Ocultar cualquier pantalla de carga
+                const loadingElements = document.querySelectorAll('.loading-overlay, .initial-loading');
+                loadingElements.forEach(el => el.style.display = 'none');
+
+            } catch (error) {
+                console.error('Error crítico al iniciar Justice 2:', error);
+
+                // Mostrar mensaje de error amigable
+                const body = document.body;
+                body.innerHTML = `
+                    <div style="display: flex; justify-content: center; align-items: center; height: 100vh; font-family: Arial, sans-serif;">
+                        <div style="text-align: center; max-width: 500px; padding: 20px;">
+                            <h1 style="color: #e74c3c;">Error al iniciar la aplicación</h1>
+                            <p>Justice 2 ha encontrado un error durante la inicialización.</p>
+                            <button onclick="window.location.reload()" style="background: #3498db; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+                                Reintentar
+                            </button>
+                            <details style="margin-top: 20px; text-align: left;">
+                                <summary style="cursor: pointer;">Ver detalles del error</summary>
+                                <pre style="background: #f8f9fa; padding: 10px; border-radius: 5px; overflow-x: auto; font-size: 12px;">${error.stack}</pre>
+                            </details>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+    </script>
 </body>
 
 </html>
